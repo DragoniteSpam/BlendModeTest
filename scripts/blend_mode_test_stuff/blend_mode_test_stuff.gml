@@ -30,8 +30,22 @@ function LayerData(name) constructor {
                 if (obj_emu_demo.preview_borders) {
                     draw_rectangle_colour(x1, y1, x2, y2, c_white, c_white, c_white, c_white, true);
                 }
+                var within_sprite = point_in_rectangle(mx, my, max(0, x1), max(0, y1), min(self.width - 1, x2), min(self.height - 1, y2))
+                if (abs(mx - x1) < 4 && my > min(y1, y2) && my < max(y1, y2)) {
+                    window_set_cursor(cr_size_we);
+                } else if (abs(mx - x2) < 4 && my > min(y1, y2) && my < max(y1, y2)) {
+                    window_set_cursor(cr_size_we);
+                } else if (abs(my - y1) < 4 && mx > min(x1, x2) && mx < max(x1, x2)) {
+                    window_set_cursor(cr_size_ns);
+                } else if (abs(my - y2) < 4 && mx > min(x1, x2) && mx < max(x1, x2)) {
+                    window_set_cursor(cr_size_ns);
+                } else if (within_sprite) {
+                    window_set_cursor(cr_size_all);
+                } else {
+                    window_set_cursor(cr_default);
+                }
                 if (mouse_check_button_pressed(mb_left)) {
-                    if (point_in_rectangle(mx, my, max(0, x1), max(0, y1), min(obj_emu_demo.render_surface.width - 1, x2), min(obj_emu_demo.render_surface.height - 1, y2))) {
+                    if (within_sprite) {
                         self.mx = mx;
                         self.my = my;
                     }
