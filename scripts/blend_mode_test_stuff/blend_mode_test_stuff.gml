@@ -163,6 +163,7 @@ function LayerData(name) constructor {
                 var x2 = self.x + self.width - 1;
                 var y2 = self.y + self.height - 1;
                 if (obj_emu_demo.preview_borders) {
+                    gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
                     draw_rectangle_colour(x1, y1, x2, y2, c_white, c_white, c_white, c_white, true);
                 }
             }
