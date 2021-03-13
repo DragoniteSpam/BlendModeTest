@@ -44,6 +44,7 @@ function LayerData(name) constructor {
         self.blend_single = bm_normal;
         self.blend_src = bm_zero;
         self.blend_dest = bm_one;
+        obj_emu_demo.Refresh();
     };
     
     self.Render = function(mx, my) {
