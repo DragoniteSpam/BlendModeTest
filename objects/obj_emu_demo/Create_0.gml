@@ -12,16 +12,40 @@ layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
 
 Select = function(layer) {
-    layer_list.Select(layer, true);
+    if (layer == undefined) {
+        layer_name.SetInteractive(false);
+        layer_delete.SetInteractive(false);
+        layer_move_up.SetInteractive(false);
+        layer_move_down.SetInteractive(false);
+        array_blend_type.SetInteractive(false);
+        array_blend_mode_basic.SetInteractive(false);
+        array_blend_mode_ext_src.SetInteractive(false);
+        array_blend_mode_ext_dest.SetInteractive(false);
+        load_image_button.SetInteractive(false);
+    } else {
+        layer_list.Select(layer, true);
+        layer_name.SetInteractive(true);
+        layer_delete.SetInteractive(true);
+        layer_move_up.SetInteractive(true);
+        layer_move_down.SetInteractive(true);
+        array_blend_type.SetInteractive(true);
+        array_blend_mode_basic.SetInteractive(true);
+        array_blend_mode_ext_src.SetInteractive(true);
+        array_blend_mode_ext_dest.SetInteractive(true);
+        load_image_button.SetInteractive(true);
+    }
+    if (ds_list_size(layers) == 255) {
+        layer_add.SetInteractive(false);
+    } else {
+        layer_add.SetInteractive(true);
+    }
 };
 
 layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     var n = ds_list_size(obj_emu_demo.layers);
-    if (n < 255) {
-        ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
-        if (n == 0) {
-            obj_emu_demo.Select(0);
-        }
+    ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
+    if (n == 0) {
+        obj_emu_demo.Select(0);
     }
 });
 
@@ -48,6 +72,7 @@ layer_move_down.SetInteractive(false);
 container.AddContent([
     new EmuText(32, 0, 256, 32, "Blend Mode Test Program"),
     layer_list,
+    layer_add,
     layer_name,
     layer_delete,
     layer_move_up,
