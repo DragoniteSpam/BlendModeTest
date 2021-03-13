@@ -29,3 +29,15 @@ function LayerData(name) constructor {
 #macro BM_ADD 1
 #macro BM_SUBTRACT 2
 #macro BM_MAX 3
+
+#macro BM_ZERO 0
+#macro BM_ONE 1
+#macro BM_SRC_COLOR 2
+#macro BM_INV_SRC_COLOR 3
+#macro BM_SRC_ALPHA 4
+#macro BM_INV_SRC_ALPHA 5
+#macro BM_DEST_ALPHA 6
+#macro BM_INV_DEST_ALPHA 7
+#macro BM_DEST_COLOR 8
+#macro BM_INV_DEST_COLOR 9
+#macro BM_SRC_ALPHA_SAT 10
