@@ -40,7 +40,19 @@ function LayerData(name) constructor {
                 var ay2 = max(y1, y2);
                 var within_sprite = point_in_rectangle(mx, my, max(0, ax1), max(0, ay1), min(obj_emu_demo.render_surface.width - 1, ax2), min(obj_emu_demo.render_surface.height - 1, ay2))
                 if (self.locked_drag_mode == drag_mode_none) {
-                    if (abs(mx - ax1) < 4 && my > ay1 && my < ay2) {
+                    if (abs(mx - ax1) < 4 && abs(my - ay1) < 4) {
+                        window_set_cursor(cr_size_nwse);
+                        self.drag_mode = drag_mode_nw;
+                    } else if (abs(mx - ax2) < 4 && abs(my - ay1) < 4) {
+                        window_set_cursor(cr_size_nesw);
+                        self.drag_mode = drag_mode_ne;
+                    } else if (abs(mx - ax1) < 4 && abs(my - ay2) < 4) {
+                        window_set_cursor(cr_size_nesw);
+                        self.drag_mode = drag_mode_sw;
+                    } else if (abs(mx - ax2) < 4 && abs(my - ay2) < 4) {
+                        window_set_cursor(cr_size_nwse);
+                        self.drag_mode = drag_mode_se;
+                    } else if (abs(mx - ax1) < 4 && my > ay1 && my < ay2) {
                         window_set_cursor(cr_size_we);
                         self.drag_mode = drag_mode_w;
                     } else if (abs(mx - ax2) < 4 && my > ay1 && my < ay2) {
@@ -89,6 +101,30 @@ function LayerData(name) constructor {
                         self.my = my;
                     } else if (self.drag_mode == drag_mode_s) {
                         self.height += (my - self.my);
+                        self.mx = mx;
+                        self.my = my;
+                    } else if (self.drag_mode == drag_mode_nw) {
+                        self.height += (my - self.my);
+                        self.y -= (my - self.my);
+                        self.width -= (mx - self.mx);
+                        self.x += (mx - self.mx);
+                        self.mx = mx;
+                        self.my = my;
+                    } else if (self.drag_mode == drag_mode_ne) {
+                        self.height += (my - self.my);
+                        self.y -= (my - self.my);
+                        self.width += (mx - self.mx);
+                        self.mx = mx;
+                        self.my = my;
+                    } else if (self.drag_mode == drag_mode_sw) {
+                        self.height += (my - self.my);
+                        self.width -= (mx - self.mx);
+                        self.x += (mx - self.mx);
+                        self.mx = mx;
+                        self.my = my;
+                    } else if (self.drag_mode == drag_mode_se) {
+                        self.height += (my - self.my);
+                        self.width += (mx - self.mx);
                         self.mx = mx;
                         self.my = my;
                     }
