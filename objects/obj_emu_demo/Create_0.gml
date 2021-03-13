@@ -11,54 +11,76 @@ layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
 
-var layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
+Select = function(layer) {
+    layer_list.Select(layer, true);
+};
+
+layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
+    var n = ds_list_size(obj_emu_demo.layers);
+    if (n < 255) {
+        ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
+        if (n == 0) {
+            obj_emu_demo.Select(0);
+        }
+    }
+});
+
+layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
     
 });
+layer_name.SetInteractive(false);
+
+layer_delete = new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
+    
+});
+layer_delete.SetInteractive(false);
+
+layer_move_up = new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Up", function() {
+    
+});
+layer_move_up.SetInteractive(false);
+
+layer_move_down = new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Down", function() {
+    
+});
+layer_move_down.SetInteractive(false);
 
 container.AddContent([
     new EmuText(32, 0, 256, 32, "Blend Mode Test Program"),
     layer_list,
-    new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
-        var n = ds_list_size(obj_emu_demo.layers);
-        if (n < 255) {
-            ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
-            if (n == 0) {
-                obj_emu_demo.layer_list.Select(0, true);
-            }
-        }
-    }),
     layer_name,
-    new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
-    }),
-    new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Up", function() {
-    }),
-    new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Down", function() {
-    }),
+    layer_delete,
+    layer_move_up,
+    layer_move_down,
 ]);
 
-var array_blend_type = new EmuRadioArray(320, 0, 256, 32, "Blend Type:", BLEND_TYPE_DEFAULT, function() {
+array_blend_type = new EmuRadioArray(320, 0, 256, 32, "Blend Type:", BLEND_TYPE_DEFAULT, function() {
     
 });
 array_blend_type.AddOptions(["Basic", "Extended"]);
 array_blend_type.SetColumns(1, 192);
+array_blend_type.SetInteractive(false);
 
-var array_blend_mode_basic = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Basic Types:", 0, function() {
+array_blend_mode_basic = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Basic Types:", 0, function() {
     
 });
 array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
 array_blend_mode_basic.SetColumns(2, 192);
+array_blend_mode_basic.SetInteractive(false);
 
-var array_blend_mode_ext_src = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Source):", 0, function() {
+array_blend_mode_ext_src = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Source):", 0, function() {
     
 });
 array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_src.SetColumns(6, 192);
+array_blend_mode_ext_src.SetInteractive(false);
 
-var array_blend_mode_ext_dest = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Destination):", 0, function() {
+array_blend_mode_ext_dest = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Destination):", 0, function() {
     
 });
 array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_dest.SetColumns(6, 192);
+array_blend_mode_ext_dest.SetInteractive(false);
 
 container.AddContent([
     array_blend_type,
@@ -67,9 +89,10 @@ container.AddContent([
     array_blend_mode_ext_dest,
 ]);
 
-var load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
+load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
 });
 load_image_button.alt_text = "Click to load";
+load_image_button.SetInteractive(false);
 
 container.AddContent([
     new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
