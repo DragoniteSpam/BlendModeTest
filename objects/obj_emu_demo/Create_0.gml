@@ -1,3 +1,6 @@
+#macro BLEND_TYPE_DEFAULT 0
+#macro BLEND_TYPE_ADVANCED 1
+
 function LayerData(sprite, blend_type, blend_src, blend_dest) constructor {
     self.sprite = sprite;
     self.blend_type = blend_type;
@@ -5,6 +8,11 @@ function LayerData(sprite, blend_type, blend_src, blend_dest) constructor {
     self.blend_dest = blend_dest;
     
     self.Render = function() {
+        if (self.blend_type == BLEND_TYPE_DEFAULT) {
+            gpu_set_blendmode(self.blend_src);
+        } else {
+            gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
+        }
         draw_sprite(self.sprite, 0, 0, 0);
     };
 };
