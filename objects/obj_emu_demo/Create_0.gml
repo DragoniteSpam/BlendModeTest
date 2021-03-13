@@ -20,6 +20,7 @@ function LayerData(name, sprite, blend_type, blend_src, blend_dest) constructor 
 
 layers = ds_list_create();
 preview_background_color = c_black;
+preview_export_opaque = false;
 
 container = new EmuCore(32, 32, 640, 640);
 
@@ -88,8 +89,19 @@ container.AddContent([
     load_image_button,
 ]);
 
+var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Export Image", function() {
+});
+
 container.AddContent([
     new EmuColorPicker(732 + 128 + 32, load_image_button.y, 384, 32, "Background color:", preview_background_color, function() {
+    }),
+    button_export,
+    new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Credits", function() {
+    }),
+]);
+
+container.AddContent([
+    new EmuCheckbox(732 + 128 + 256 + 32, button_export.y, 128, 32, "Opaque?", preview_export_opaque, function() {
     }),
 ]);
 
