@@ -55,7 +55,15 @@ layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, 
 layer_name.SetInteractive(false);
 
 layer_delete = new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
-    
+    var selection = obj_emu_demo.layer_list.GetSelection();
+    obj_emu_demo.layers[| selection].Destroy();
+    ds_list_delete(obj_emu_demo.layers, selection);
+    obj_emu_demo.layer_list.ClearSelection();
+    if (selection < ds_list_size(obj_emu_demo.layers) - 1) {
+        obj_emu_demo.Select(selection);
+    } else {
+        obj_emu_demo.Select(undefined);
+    }
 });
 layer_delete.SetInteractive(false);
 
