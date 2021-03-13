@@ -1,4 +1,13 @@
-randomize();
+function LayerData(sprite, blend_type, blend_src, blend_dest) constructor {
+    self.sprite = sprite;
+    self.blend_type = blend_type;
+    self.blend_src = blend_src;
+    self.blend_dest = blend_dest;
+    
+    self.Render = function() {
+        draw_sprite(self.sprite, 0, 0, 0);
+    };
+};
 
 data = {
     // bio
