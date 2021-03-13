@@ -95,8 +95,8 @@ function LayerData(name) constructor {
                         self.mx = mx;
                         self.my = my;
                     } else if (self.drag_mode == drag_mode_n) {
-                        self.height += (my - self.my);
-                        self.y -= (my - self.my);
+                        self.height -= (my - self.my);
+                        self.y += (my - self.my);
                         self.mx = mx;
                         self.my = my;
                     } else if (self.drag_mode == drag_mode_s) {
@@ -104,15 +104,15 @@ function LayerData(name) constructor {
                         self.mx = mx;
                         self.my = my;
                     } else if (self.drag_mode == drag_mode_nw) {
-                        self.height += (my - self.my);
-                        self.y -= (my - self.my);
+                        self.height -= (my - self.my);
+                        self.y += (my - self.my);
                         self.width -= (mx - self.mx);
                         self.x += (mx - self.mx);
                         self.mx = mx;
                         self.my = my;
                     } else if (self.drag_mode == drag_mode_ne) {
-                        self.height += (my - self.my);
-                        self.y -= (my - self.my);
+                        self.height -= (my - self.my);
+                        self.y += (my - self.my);
                         self.width += (mx - self.mx);
                         self.mx = mx;
                         self.my = my;
