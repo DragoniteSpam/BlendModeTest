@@ -75,7 +75,9 @@ Select = function(layer) {
             array_blend_mode_ext_dest.SetInteractive(true);
             array_blend_mode_ext_dest.SetValue(lookup_ext_to_index[$ layer_data.blend_dest]);
         }
-        load_image_button.SetSprite(layer_data.sprite);
+        load_image_button.sprite = layer_data.sprite;
+        load_image_button.alignment = fa_left;
+        load_image_button.valignment = fa_top;
     }
     if (ds_list_size(layers) == 255) {
         layer_add.SetInteractive(false);
@@ -213,6 +215,10 @@ container.AddContent([
         } else {
             drawCheckerbox(0, 0, width, height, 1, 1, c_white, 1);
         }
+        for (var i = ds_list_size(obj_emu_demo.layers) - 1; i >= 0; i--) {
+            obj_emu_demo.layers[| i].Render();
+        }
+        gpu_set_blendmode(bm_normal);
     }, function(mx, my) { }, function() { }, function() { }),
     load_image_button,
 ]);
