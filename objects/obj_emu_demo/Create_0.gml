@@ -1,7 +1,8 @@
 #macro BLEND_TYPE_DEFAULT 0
 #macro BLEND_TYPE_ADVANCED 1
 
-function LayerData(sprite, blend_type, blend_src, blend_dest) constructor {
+function LayerData(name, sprite, blend_type, blend_src, blend_dest) constructor {
+    self.name = name;
     self.sprite = sprite;
     self.blend_type = blend_type;
     self.blend_src = blend_src;
@@ -20,9 +21,27 @@ function LayerData(sprite, blend_type, blend_src, blend_dest) constructor {
 layers = ds_list_create();
 
 container = new EmuCore(32, 32, 640, 640);
+
+var layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function() {
+    
+});
+layer_list.SetList(layers);
+
+var layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
+    
+});
+
 container.AddContent([
-    new EmuText(32, 32, 256, 32, "Blend Mode Test Program"),
-    new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 8, function() {
+    new EmuText(32, 0, 256, 32, "Blend Mode Test Program"),
+    layer_list,
+    new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
+    }),
+    layer_name,
+    new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
+    }),
+    new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Up", function() {
+    }),
+    new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Down", function() {
     }),
 ]);
 
