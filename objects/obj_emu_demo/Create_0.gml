@@ -49,6 +49,8 @@ layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
     if (n == 0) {
         obj_emu_demo.layer_list.Select(0, true);
+    } else {
+        obj_emu_demo.Select(obj_emu_demo.layer_list.GetSelection());
     }
 });
 
