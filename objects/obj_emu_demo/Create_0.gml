@@ -42,6 +42,10 @@ Select = function(layer) {
     }
 };
 
+Refresh = function() {
+    Select(layer_list.GetSelection());
+};
+
 layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function() { });
 layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
@@ -57,7 +61,7 @@ layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     if (n == 0) {
         obj_emu_demo.layer_list.Select(0, true);
     } else {
-        obj_emu_demo.Select(obj_emu_demo.layer_list.GetSelection());
+        obj_emu_demo.Refresh();
     }
 });
 
@@ -115,7 +119,7 @@ array_blend_type = new EmuRadioArray(320, 0, 256, 32, "Blend Type:", BLEND_TYPE_
         case 0: layer_data.blend_type = BLEND_TYPE_DEFAULT; break;
         case 1: layer_data.blend_type = BLEND_TYPE_ADVANCED; break;
     }
-    obj_emu_demo.Select(obj_emu_demo.layer_list.GetSelection());
+    obj_emu_demo.Refresh();
 });
 array_blend_type.AddOptions(["Basic", "Extended"]);
 array_blend_type.SetColumns(1, 192);
