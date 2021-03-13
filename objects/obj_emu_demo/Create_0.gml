@@ -60,13 +60,13 @@ array_blend_mode_basic.SetColumns(2, 192);
 var array_blend_mode_ext_src = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Source):", 0, function() {
     
 });
-array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_colour", "bm_inv_src_colour", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_colour", "bm_inv_dest_colour", "bm_src_alpha_sat"]);
+array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_src.SetColumns(6, 192);
 
 var array_blend_mode_ext_dest = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Destination):", 0, function() {
     
 });
-array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_colour", "bm_inv_src_colour", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_colour", "bm_inv_dest_colour", "bm_src_alpha_sat"]);
+array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_dest.SetColumns(6, 192);
 
 container.AddContent([
@@ -76,10 +76,21 @@ container.AddContent([
     array_blend_mode_ext_dest,
 ]);
 
-#region overview and credits
+var load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
+});
+load_image_button.alt_text = "Click to load";
+
 container.AddContent([
+    new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
+        draw_clear(c_black);
+    }, function(mx, my) { }, function() { }, function() { }),
+    load_image_button,
+]);
+
+#region overview and credits
+/*container.AddContent([
     new EmuButton(704, 32, 256, 32, "Show Character Summary", function() {
-        /*var dialog = new EmuDialog(640, 384, "Character Summary");
+        var dialog = new EmuDialog(640, 384, "Character Summary");
         var demo = obj_emu_demo;
         var pronouns_possessive = ["Their", "His", "Her"];
         var pronoun_possessive = pronouns_possessive[demo.data.pronouns];
@@ -119,7 +130,7 @@ container.AddContent([
         dialog.AddContent([
             new EmuText(32, EMU_AUTO, 560, 320, str_summary),
             new EmuButton(dialog.width / 2 - 128 / 2, dialog.height - 32 - 32 / 2, 128, 32, "Close", emu_dialog_close_auto),
-        ]);*/
+        ]);
     }),
     new EmuButton(704, EMU_AUTO, 256, 32, "Credits", function() {
         var dialog = new EmuDialog(640, 320, "Credits");
@@ -133,4 +144,5 @@ container.AddContent([
         ]);
     }),
 ]);
+*/
 #endregion
