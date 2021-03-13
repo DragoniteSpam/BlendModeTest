@@ -20,8 +20,8 @@ Select = function(layer) {
         layer_name.SetInteractive(true);
         layer_name.SetValue(layer_data.name);
         layer_delete.SetInteractive(true);
-        layer_move_up.SetInteractive(true);
-        layer_move_down.SetInteractive(true);
+        layer_move_up.SetInteractive(layer > 0);
+        layer_move_down.SetInteractive(layer < ds_list_size(layers) - 1);
         array_blend_type.SetInteractive(true);
         array_blend_mode_basic.SetInteractive(true);
         array_blend_mode_ext_src.SetInteractive(true);
@@ -69,13 +69,24 @@ layer_delete = new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
 });
 layer_delete.SetInteractive(false);
 
+// these two are confusing because moving up involves decreasing your position in the list
 layer_move_up = new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Up", function() {
-    
+    var index = obj_emu_demo.layer_list.GetSelection();
+    var t = obj_emu_demo.layers[| index];
+    obj_emu_demo.layers[| index] = obj_emu_demo.layers[| index - 1];
+    obj_emu_demo.layers[| index - 1] = t;
+    obj_emu_demo.layer_list.ClearSelection();
+    obj_emu_demo.layer_list.Select(index - 1, true);
 });
 layer_move_up.SetInteractive(false);
 
 layer_move_down = new EmuButton(32, EMU_AUTO, 256, 32, "Move Layer Down", function() {
-    
+    var index = obj_emu_demo.layer_list.GetSelection();
+    var t = obj_emu_demo.layers[| index];
+    obj_emu_demo.layers[| index] = obj_emu_demo.layers[| index + 1];
+    obj_emu_demo.layers[| index + 1] = t;
+    obj_emu_demo.layer_list.ClearSelection();
+    obj_emu_demo.layer_list.Select(index + 1, true);
 });
 layer_move_down.SetInteractive(false);
 
