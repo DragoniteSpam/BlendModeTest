@@ -5,9 +5,10 @@ function LayerData(name) constructor {
     self.blend_single = bm_normal;
     self.blend_src = bm_zero;
     self.blend_dest = bm_one;
+    self.enabled = true;
     
     self.Render = function() {
-        if (sprite_exists(self.sprite)) {
+        if (self.enabled && sprite_exists(self.sprite)) {
             if (self.blend_type == BLEND_TYPE_DEFAULT) {
                 gpu_set_blendmode(self.blend_single);
             } else {

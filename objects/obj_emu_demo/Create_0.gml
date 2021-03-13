@@ -45,6 +45,7 @@ lookup_index_to_ext[$ BM_SRC_ALPHA_SAT] = bm_src_alpha_sat;
 Select = function(layer) {
     if (layer == undefined) {
         layer_name.SetInteractive(false);
+        layer_enabled.SetInteractive(false);
         layer_delete.SetInteractive(false);
         layer_move_up.SetInteractive(false);
         layer_move_down.SetInteractive(false);
@@ -57,6 +58,8 @@ Select = function(layer) {
         var layer_data = layers[| layer];
         layer_name.SetInteractive(true);
         layer_name.SetValue(layer_data.name);
+        layer_enabled.SetInteractive(true);
+        layer_enabled.SetValue(layer_data.enabled);
         layer_delete.SetInteractive(true);
         layer_move_up.SetInteractive(layer > 0);
         layer_move_down.SetInteractive(layer < ds_list_size(layers) - 1);
@@ -90,7 +93,7 @@ Refresh = function() {
     Select(layer_list.GetSelection());
 };
 
-layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function() { });
+layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 10, function() { });
 layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
@@ -108,6 +111,11 @@ layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
         obj_emu_demo.Refresh();
     }
 });
+
+layer_enabled = new EmuCheckbox(32, EMU_AUTO, 256, 32, "Visible?", true, function() {
+    obj_emu_demo.GetActiveLayer().enabled = value;
+});
+layer_enabled.SetInteractive(false);
 
 layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
@@ -151,6 +159,7 @@ container.AddContent([
     new EmuText(32, 0, 256, 32, "Blend Mode Test Program"),
     layer_list,
     layer_add,
+    layer_enabled,
     layer_name,
     layer_delete,
     layer_move_up,
