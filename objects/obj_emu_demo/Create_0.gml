@@ -28,6 +28,7 @@ var layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function(
     
 });
 layer_list.SetList(layers);
+layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 
 var layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
     
@@ -84,7 +85,11 @@ load_image_button.alt_text = "Click to load";
 
 container.AddContent([
     new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
-        draw_clear(c_black);
+        if (obj_emu_demo.preview_export_opaque) {
+            draw_clear(obj_emu_demo.preview_background_color);
+        } else {
+            drawCheckerbox(0, 0, width, height, 1, 1, c_white, 1);
+        }
     }, function(mx, my) { }, function() { }, function() { }),
     load_image_button,
 ]);
