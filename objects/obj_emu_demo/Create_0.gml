@@ -19,6 +19,7 @@ function LayerData(name, sprite, blend_type, blend_src, blend_dest) constructor 
 };
 
 layers = ds_list_create();
+preview_background_color = c_black;
 
 container = new EmuCore(32, 32, 640, 640);
 
@@ -85,6 +86,11 @@ container.AddContent([
         draw_clear(c_black);
     }, function(mx, my) { }, function() { }, function() { }),
     load_image_button,
+]);
+
+container.AddContent([
+    new EmuColorPicker(732 + 128 + 32, load_image_button.y, 384, 32, "Background color:", preview_background_color, function() {
+    }),
 ]);
 
 #region overview and credits
