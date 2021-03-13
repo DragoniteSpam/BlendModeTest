@@ -29,20 +29,11 @@ function LayerData(name) constructor {
     
     self.Render = function(mx, my) {
         if (self.enabled && sprite_exists(self.sprite)) {
-            if (self.blend_type == BLEND_TYPE_DEFAULT) {
-                gpu_set_blendmode(self.blend_single);
-            } else {
-                gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
-            }
-            draw_sprite_stretched(self.sprite, 0, self.x, self.y, self.width, self.height);
             if (obj_emu_demo.GetActiveLayer() == self) {
                 var x1 = self.x;
                 var y1 = self.y;
                 var x2 = self.x + self.width - 1;
                 var y2 = self.y + self.height - 1;
-                if (obj_emu_demo.preview_borders) {
-                    draw_rectangle_colour(x1, y1, x2, y2, c_white, c_white, c_white, c_white, true);
-                }
                 var ax1 = min(x1, x2);
                 var ay1 = min(y1, y2);
                 var ax2 = max(x1, x2);
@@ -103,6 +94,21 @@ function LayerData(name) constructor {
                     }
                 } else {
                     self.locked_drag_mode = drag_mode_none;
+                }
+            }
+            if (self.blend_type == BLEND_TYPE_DEFAULT) {
+                gpu_set_blendmode(self.blend_single);
+            } else {
+                gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
+            }
+            draw_sprite_stretched(self.sprite, 0, self.x, self.y, self.width, self.height);
+            if (obj_emu_demo.GetActiveLayer() == self) {
+                var x1 = self.x;
+                var y1 = self.y;
+                var x2 = self.x + self.width - 1;
+                var y2 = self.y + self.height - 1;
+                if (obj_emu_demo.preview_borders) {
+                    draw_rectangle_colour(x1, y1, x2, y2, c_white, c_white, c_white, c_white, true);
                 }
             }
         }
