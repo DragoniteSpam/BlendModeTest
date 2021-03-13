@@ -21,6 +21,10 @@ function EmuButtonImage(x, y, w, h, sprite, index, blend, alpha, scale_to_fit, c
     self._surface = noone;
     self._index = index;
     
+    self.SetSprite = function(sprite) {
+        self.sprite = sprite;
+    };
+    
     Render = function(base_x, base_y) {
         processAdvancement();
         
