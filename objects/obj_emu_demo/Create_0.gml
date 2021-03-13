@@ -55,6 +55,7 @@ Select = function(layer) {
         array_blend_mode_ext_src.SetInteractive(false);
         array_blend_mode_ext_dest.SetInteractive(false);
         load_image_button.SetInteractive(false);
+        layer_reset.SetInteractive(false);
     } else {
         var layer_data = layers[| layer];
         layer_name.SetInteractive(true);
@@ -67,6 +68,7 @@ Select = function(layer) {
         array_blend_type.SetInteractive(true);
         array_blend_type.SetValue(layer_data.blend_type);
         load_image_button.SetInteractive(true);
+        layer_reset.SetInteractive(true);
         if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
             array_blend_mode_basic.SetInteractive(true);
             array_blend_mode_basic.SetValue(lookup_basic_to_index[$ layer_data.blend_single]);
@@ -210,11 +212,18 @@ array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_i
 array_blend_mode_ext_dest.SetColumns(6, 192);
 array_blend_mode_ext_dest.SetInteractive(false);
 
+layer_reset = new EmuButton(320, EMU_AUTO, 256, 32, "Reset Layer", function() {
+    var layer_data = obj_emu_demo.GetActiveLayer();
+    layer_data.Reset();
+});
+layer_reset.SetInteractive(false);
+
 container.AddContent([
     array_blend_type,
     array_blend_mode_basic,
     array_blend_mode_ext_src,
     array_blend_mode_ext_dest,
+    layer_reset,
 ]);
 
 load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {

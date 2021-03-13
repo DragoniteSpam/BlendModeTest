@@ -27,6 +27,25 @@ function LayerData(name) constructor {
     self.drag_mode = drag_mode_none;
     self.locked_drag_mode = self.drag_mode;
     
+    self.Reset = function() {
+        self.x = 0;
+        self.y = 0;
+        self.mx = 0;
+        self.my = 0;
+        self.width = 1;
+        self.height = 1;
+        self.drag_mode = drag_mode_none;
+        self.locked_drag_mode = self.drag_mode;
+        if (sprite_exists(self.sprite)) {
+            self.width = sprite_get_width(self.sprite);
+            self.height = sprite_get_height(self.sprite);
+        }
+        self.blend_type = BLEND_TYPE_DEFAULT;
+        self.blend_single = bm_normal;
+        self.blend_src = bm_zero;
+        self.blend_dest = bm_one;
+    };
+    
     self.Render = function(mx, my) {
         if (self.enabled && sprite_exists(self.sprite)) {
             if (obj_emu_demo.GetActiveLayer() == self) {
