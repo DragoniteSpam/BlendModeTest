@@ -15,6 +15,9 @@ function LayerData(name) constructor {
                 gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
             }
             draw_sprite(self.sprite, 0, 0, 0);
+            if (obj_emu_demo.preview_borders && obj_emu_demo.GetActiveLayer() == self) {
+                draw_rectangle_colour(0, 0, sprite_get_width(self.sprite) - 1, sprite_get_height(self.sprite) - 1, c_white, c_white, c_white, c_white, true);
+            }
         }
     };
     
