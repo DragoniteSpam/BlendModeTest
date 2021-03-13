@@ -225,18 +225,20 @@ load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 
 load_image_button.alt_text = "Click to load";
 load_image_button.SetInteractive(false);
 
+render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
+    if (obj_emu_demo.preview_export_opaque) {
+        draw_clear(obj_emu_demo.preview_background_color);
+    } else {
+        drawCheckerbox(0, 0, width, height, 1, 1, c_white, 1);
+    }
+    for (var i = ds_list_size(obj_emu_demo.layers) - 1; i >= 0; i--) {
+        obj_emu_demo.layers[| i].Render(mx, my);
+    }
+    gpu_set_blendmode(bm_normal);
+}, function(mx, my) { }, function() { }, function() { });
+
 container.AddContent([
-    new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
-        if (obj_emu_demo.preview_export_opaque) {
-            draw_clear(obj_emu_demo.preview_background_color);
-        } else {
-            drawCheckerbox(0, 0, width, height, 1, 1, c_white, 1);
-        }
-        for (var i = ds_list_size(obj_emu_demo.layers) - 1; i >= 0; i--) {
-            obj_emu_demo.layers[| i].Render();
-        }
-        gpu_set_blendmode(bm_normal);
-    }, function(mx, my) { }, function() { }, function() { }),
+    render_surface,
     load_image_button,
 ]);
 
