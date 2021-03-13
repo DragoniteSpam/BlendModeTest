@@ -16,7 +16,9 @@ Select = function(layer) {
         array_blend_mode_ext_dest.SetInteractive(false);
         load_image_button.SetInteractive(false);
     } else {
+        var layer_data = layers[| layer];
         layer_name.SetInteractive(true);
+        layer_name.SetValue(layer_data.name);
         layer_delete.SetInteractive(true);
         layer_move_up.SetInteractive(true);
         layer_move_down.SetInteractive(true);
@@ -38,6 +40,10 @@ layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
 
+GetActiveLayer = function() {
+    return layers[| layer_list.GetSelection()];
+};
+
 layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     var n = ds_list_size(obj_emu_demo.layers);
     ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
@@ -47,7 +53,8 @@ layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
 });
 
 layer_name = new EmuInput(32, EMU_AUTO, 256, 32, "Layer Name:", "", "name", 32, E_InputTypes.STRING, function() {
-    
+    var layer_data = obj_emu_demo.GetActiveLayer();
+    layer_data.name = value;
 });
 layer_name.SetInteractive(false);
 
