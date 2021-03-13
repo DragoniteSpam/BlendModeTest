@@ -94,6 +94,7 @@ var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Export Ima
 
 container.AddContent([
     new EmuColorPicker(732 + 128 + 32, load_image_button.y, 384, 32, "Background color:", preview_background_color, function() {
+        obj_emu_demo.preview_background_color = value;
     }),
     button_export,
     new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Credits", function() {
@@ -102,6 +103,7 @@ container.AddContent([
 
 container.AddContent([
     new EmuCheckbox(732 + 128 + 256 + 32, button_export.y, 128, 32, "Opaque?", preview_export_opaque, function() {
+        obj_emu_demo.preview_export_opaque = value;
     }),
 ]);
 
