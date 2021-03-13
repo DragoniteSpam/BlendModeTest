@@ -45,6 +45,37 @@ container.AddContent([
     }),
 ]);
 
+var array_blend_type = new EmuRadioArray(320, 0, 256, 32, "Blend Type:", BLEND_TYPE_DEFAULT, function() {
+    
+});
+array_blend_type.AddOptions(["Basic", "Extended"]);
+array_blend_type.SetColumns(1, 192);
+
+var array_blend_mode_basic = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Basic Types:", 0, function() {
+    
+});
+array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
+array_blend_mode_basic.SetColumns(2, 192);
+
+var array_blend_mode_ext_src = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Source):", 0, function() {
+    
+});
+array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_colour", "bm_inv_src_colour", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_colour", "bm_inv_dest_colour", "bm_src_alpha_sat"]);
+array_blend_mode_ext_src.SetColumns(6, 192);
+
+var array_blend_mode_ext_dest = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Extended Types (Destination):", 0, function() {
+    
+});
+array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_colour", "bm_inv_src_colour", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_colour", "bm_inv_dest_colour", "bm_src_alpha_sat"]);
+array_blend_mode_ext_dest.SetColumns(6, 192);
+
+container.AddContent([
+    array_blend_type,
+    array_blend_mode_basic,
+    array_blend_mode_ext_src,
+    array_blend_mode_ext_dest,
+]);
+
 #region overview and credits
 container.AddContent([
     new EmuButton(704, 32, 256, 32, "Show Character Summary", function() {
