@@ -75,6 +75,7 @@ Select = function(layer) {
             array_blend_mode_ext_dest.SetInteractive(true);
             array_blend_mode_ext_dest.SetValue(lookup_ext_to_index[$ layer_data.blend_dest]);
         }
+        load_image_button.SetSprite(layer_data.sprite);
     }
     if (ds_list_size(layers) == 255) {
         layer_add.SetInteractive(false);
@@ -198,6 +199,9 @@ container.AddContent([
 ]);
 
 load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
+    var sprite_fn = get_open_filename("Image files|*.png;*.bmp;*jpg;*.jpeg;*", "Select an image");
+    obj_emu_demo.GetActiveLayer().SetSprite(sprite_add(sprite_fn, 0, false, false, 0, 0));
+    obj_emu_demo.Refresh();
 });
 load_image_button.alt_text = "Click to load";
 load_image_button.SetInteractive(false);

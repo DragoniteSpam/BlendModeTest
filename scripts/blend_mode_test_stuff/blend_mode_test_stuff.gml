@@ -17,6 +17,13 @@ function LayerData(name) constructor {
         }
     };
     
+    self.SetSprite = function(sprite) {
+        if (sprite_exists(sprite)) {
+            if (sprite_exists(self.sprite)) sprite_delete(self.sprite);
+            self.sprite = sprite;
+        }
+    };
+    
     self.Destroy = function() {
         if (sprite_exists(self.sprite)) sprite_delete(self.sprite);
     };
