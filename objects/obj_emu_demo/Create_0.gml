@@ -97,6 +97,13 @@ layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 10, function() { 
 layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
+layer_list.getListColors = method(layer_list, function(index) {
+    return obj_emu_demo.layers[| index].enabled ? EMU_COLOR_LIST_TEXT : EMU_COLOR_INPUT_REJECT;
+});
+layer_list.SetCallbackMiddle(function(index) {
+    obj_emu_demo.GetActiveLayer().enabled = !obj_emu_demo.GetActiveLayer().enabled;
+    obj_emu_demo.Refresh();
+});
 
 GetActiveLayer = function() {
     return layers[| layer_list.GetSelection()];
