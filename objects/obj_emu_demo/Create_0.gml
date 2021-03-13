@@ -23,6 +23,7 @@ Select = function(layer) {
         layer_move_up.SetInteractive(layer > 0);
         layer_move_down.SetInteractive(layer < ds_list_size(layers) - 1);
         array_blend_type.SetInteractive(true);
+        array_blend_type.SetValue(layer_data.blend_type);
         array_blend_mode_basic.SetInteractive(true);
         array_blend_mode_ext_src.SetInteractive(true);
         array_blend_mode_ext_dest.SetInteractive(true);
@@ -103,7 +104,12 @@ container.AddContent([
 ]);
 
 array_blend_type = new EmuRadioArray(320, 0, 256, 32, "Blend Type:", BLEND_TYPE_DEFAULT, function() {
-    
+    var layer_data = obj_emu_demo.GetActiveLayer();
+    switch (value) {
+        case 0: layer_data.blend_type = BLEND_TYPE_DEFAULT; break;
+        case 1: layer_data.blend_type = BLEND_TYPE_ADVANCED; break;
+    }
+    obj_emu_demo.Select(obj_emu_demo.layer_list.GetSelection());
 });
 array_blend_type.AddOptions(["Basic", "Extended"]);
 array_blend_type.SetColumns(1, 192);
