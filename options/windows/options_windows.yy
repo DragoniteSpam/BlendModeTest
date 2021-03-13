@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Blend Mode Preview",
   "option_windows_executable_name": "${project_name}.exe",
-  "option_windows_version": "1.1.0.0",
+  "option_windows_version": "1.2.0.0",
   "option_windows_company_info": "",
   "option_windows_product_info": "Blend Mode Preview",
   "option_windows_copyright_info": "(c) 2021 Michael Peng",
