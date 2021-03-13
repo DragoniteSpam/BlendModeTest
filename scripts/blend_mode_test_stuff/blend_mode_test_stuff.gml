@@ -11,6 +11,8 @@ function LayerData(name) constructor {
     self.y = 0;
     self.mx = undefined;
     self.my = undefined;
+    self.width = 1;
+    self.height = 1;
     
     self.Render = function(mx, my) {
         if (self.enabled && sprite_exists(self.sprite)) {
@@ -19,7 +21,7 @@ function LayerData(name) constructor {
             } else {
                 gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
             }
-            draw_sprite(self.sprite, 0, self.x, self.y);
+            draw_sprite_stretched(self.sprite, 0, self.x, self.y, self.width, self.height);
             if (obj_emu_demo.GetActiveLayer() == self) {
                 var x1 = self.x;
                 var y1 = self.y;
@@ -52,6 +54,8 @@ function LayerData(name) constructor {
         if (sprite_exists(sprite)) {
             if (sprite_exists(self.sprite)) sprite_delete(self.sprite);
             self.sprite = sprite;
+            self.width = sprite_get_width(sprite);
+            self.height = sprite_get_height(sprite);
         }
     };
     
