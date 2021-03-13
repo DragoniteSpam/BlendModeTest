@@ -93,7 +93,17 @@ Select = function(layer) {
 };
 
 Refresh = function() {
-    Select(layer_list.GetSelection());
+    var selection = layer_list.GetSelection();
+    if (selection == -1) {
+        if (!ds_list_empty(layers)) {
+            selection = ds_list_size(layers) - 1;
+            layer_list.Select(selection);
+            return;
+        } else {
+            selection = undefined;
+        }
+    }
+    Select(selection);
 };
 
 layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 10, function() { });
