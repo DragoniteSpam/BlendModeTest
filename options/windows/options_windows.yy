@@ -1,9 +1,9 @@
 {
-  "option_windows_display_name": "Blend Mode Test",
+  "option_windows_display_name": "Blend Mode Preview",
   "option_windows_executable_name": "${project_name}.exe",
   "option_windows_version": "1.0.0.0",
   "option_windows_company_info": "",
-  "option_windows_product_info": "Blend Mode Test",
+  "option_windows_product_info": "Blend Mode Preview",
   "option_windows_copyright_info": "(c) 2021 Michael Peng",
   "option_windows_description_info": "Quickly try out different blend mode combinations to see what they look like. It's like 0.1% of Photoshop!",
   "option_windows_display_cursor": true,
