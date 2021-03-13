@@ -252,6 +252,30 @@ container.AddContent([
 ]);
 
 var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Export Image", function() {
+    var fn = get_save_filename("PNG files|*.png", "save.png");
+    if (fn != "") {
+        var t_borders = obj_emu_demo.preview_borders;
+        obj_emu_demo.preview_borders = false;
+        var render_surface = obj_emu_demo.render_surface;
+        
+        render_surface.Render(0, 0);
+        
+        var surface = surface_create(render_surface.width, render_surface.height);
+        surface_set_target(surface);
+        draw_clear_alpha(c_white, 1);
+        
+        shader_set(shd_noalpha);
+        draw_surface(render_surface._surface, 0, 0);
+        shader_reset();
+        
+        surface_reset_target();
+        
+        surface_save(surface, fn);
+        
+        surface_free(surface);
+        
+        obj_emu_demo.preview_borders = t_borders;
+    }
 });
 
 var button_credits = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Credits", function() {
