@@ -24,3 +24,8 @@ function LayerData(name) constructor {
 
 #macro BLEND_TYPE_DEFAULT 0
 #macro BLEND_TYPE_ADVANCED 1
+
+#macro BM_NORMAL 0
+#macro BM_ADD 1
+#macro BM_SUBTRACT 2
+#macro BM_MAX 3

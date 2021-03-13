@@ -4,6 +4,18 @@ preview_export_opaque = false;
 
 container = new EmuCore(32, 32, 640, 640);
 
+lookup_basic_to_index = { };
+lookup_basic_to_index[$ bm_normal] = BM_NORMAL;
+lookup_basic_to_index[$ bm_add] = BM_ADD;
+lookup_basic_to_index[$ bm_subtract] = BM_SUBTRACT;
+lookup_basic_to_index[$ bm_max] = BM_MAX;
+
+lookup_index_to_basic = { };
+lookup_index_to_basic[$ BM_NORMAL] = bm_normal;
+lookup_index_to_basic[$ BM_ADD] = bm_add;
+lookup_index_to_basic[$ BM_SUBTRACT] = bm_subtract;
+lookup_index_to_basic[$ BM_MAX] = bm_max;
+
 Select = function(layer) {
     if (layer == undefined) {
         layer_name.SetInteractive(false);
@@ -27,6 +39,7 @@ Select = function(layer) {
         load_image_button.SetInteractive(true);
         if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
             array_blend_mode_basic.SetInteractive(true);
+            array_blend_mode_basic.SetValue(lookup_index_to_basic[$ layer_data.blend_single]);
             array_blend_mode_ext_src.SetInteractive(false);
             array_blend_mode_ext_dest.SetInteractive(false);
         } else if (layer_data.blend_type == BLEND_TYPE_ADVANCED) {
@@ -126,7 +139,8 @@ array_blend_type.SetColumns(1, 192);
 array_blend_type.SetInteractive(false);
 
 array_blend_mode_basic = new EmuRadioArray(320, EMU_AUTO, 256, 32, "Basic Types:", 0, function() {
-    
+    var layer_data = obj_emu_demo.GetActiveLayer();
+    layer_data.blend_single = obj_emu_demo.lookup_index_to_basic[$ value];
 });
 array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
 array_blend_mode_basic.SetColumns(2, 192);
