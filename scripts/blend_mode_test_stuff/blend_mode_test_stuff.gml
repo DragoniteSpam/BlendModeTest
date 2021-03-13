@@ -1,14 +1,15 @@
-function LayerData(name, sprite, blend_type, blend_src, blend_dest) constructor {
+function LayerData(name) constructor {
     self.name = name;
-    self.sprite = sprite;
-    self.blend_type = blend_type;
-    self.blend_src = blend_src;
-    self.blend_dest = blend_dest;
+    self.sprite = -1;
+    self.blend_type = BLEND_TYPE_DEFAULT;
+    self.blend_single = bm_normal;
+    self.blend_src = bm_zero;
+    self.blend_dest = bm_one;
     
     self.Render = function() {
         if (sprite_exists(self.sprite)) {
             if (self.blend_type == BLEND_TYPE_DEFAULT) {
-                gpu_set_blendmode(self.blend_src);
+                gpu_set_blendmode(self.blend_single);
             } else {
                 gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
             }

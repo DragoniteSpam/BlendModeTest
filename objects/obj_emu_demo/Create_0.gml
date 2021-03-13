@@ -53,7 +53,7 @@ GetActiveLayer = function() {
 
 layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     var n = ds_list_size(obj_emu_demo.layers);
-    ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
+    ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n)));
     if (n == 0) {
         obj_emu_demo.layer_list.Select(0, true);
     } else {
