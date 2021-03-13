@@ -24,10 +24,16 @@ Select = function(layer) {
         layer_move_down.SetInteractive(layer < ds_list_size(layers) - 1);
         array_blend_type.SetInteractive(true);
         array_blend_type.SetValue(layer_data.blend_type);
-        array_blend_mode_basic.SetInteractive(true);
-        array_blend_mode_ext_src.SetInteractive(true);
-        array_blend_mode_ext_dest.SetInteractive(true);
         load_image_button.SetInteractive(true);
+        if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
+            array_blend_mode_basic.SetInteractive(true);
+            array_blend_mode_ext_src.SetInteractive(false);
+            array_blend_mode_ext_dest.SetInteractive(false);
+        } else if (layer_data.blend_type == BLEND_TYPE_ADVANCED) {
+            array_blend_mode_basic.SetInteractive(false);
+            array_blend_mode_ext_src.SetInteractive(true);
+            array_blend_mode_ext_dest.SetInteractive(true);
+        }
     }
     if (ds_list_size(layers) == 255) {
         layer_add.SetInteractive(false);
