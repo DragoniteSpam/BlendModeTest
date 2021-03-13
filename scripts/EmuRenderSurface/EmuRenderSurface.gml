@@ -74,7 +74,9 @@ function EmuRenderSurface(x, y, w, h, render, step, create, destroy) : EmuCore(x
         ds_map_destroy(old_state);
         surface_reset_target();
         
+        shader_set(shd_noalpha);
         draw_surface(_surface, x1, y1);
+        shader_reset();
     }
     
     Destroy = function() {
