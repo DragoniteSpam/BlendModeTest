@@ -1,6 +1,7 @@
 layers = ds_list_create();
 preview_background_color = c_black;
 preview_export_opaque = false;
+preview_borders = true;
 
 container = new EmuCore(32, 32, 640, 640);
 
@@ -242,18 +243,23 @@ container.AddContent([
 var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Export Image", function() {
 });
 
+var button_credits = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Credits", function() {
+    
+});
+
 container.AddContent([
     new EmuColorPicker(732 + 128 + 32, load_image_button.y, 384, 32, "Background color:", preview_background_color, function() {
         obj_emu_demo.preview_background_color = value;
     }),
     button_export,
-    new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Credits", function() {
-    }),
 ]);
 
 container.AddContent([
     new EmuCheckbox(732 + 128 + 256 + 32, button_export.y, 128, 32, "Opaque?", preview_export_opaque, function() {
         obj_emu_demo.preview_export_opaque = value;
+    }),
+    new EmuCheckbox(732 + 128 + 256 + 32, button_credits.y, 128, 32, "Borders?", preview_borders, function() {
+        obj_emu_demo.preview_borders = value;
     }),
 ]);
 
