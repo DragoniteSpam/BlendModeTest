@@ -4,13 +4,6 @@ preview_export_opaque = false;
 
 container = new EmuCore(32, 32, 640, 640);
 
-layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function() {
-    
-});
-layer_list.SetList(layers);
-layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
-layer_list.allow_deselect = false;
-
 Select = function(layer) {
     if (layer == undefined) {
         layer_name.SetInteractive(false);
@@ -23,7 +16,6 @@ Select = function(layer) {
         array_blend_mode_ext_dest.SetInteractive(false);
         load_image_button.SetInteractive(false);
     } else {
-        layer_list.Select(layer, true);
         layer_name.SetInteractive(true);
         layer_delete.SetInteractive(true);
         layer_move_up.SetInteractive(true);
@@ -41,11 +33,16 @@ Select = function(layer) {
     }
 };
 
+layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 12, function() { });
+layer_list.SetList(layers);
+layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
+layer_list.allow_deselect = false;
+
 layer_add = new EmuButton(32, EMU_AUTO, 256, 32, "Add Layer", function() {
     var n = ds_list_size(obj_emu_demo.layers);
     ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n), -1, BLEND_TYPE_DEFAULT, bm_normal, bm_normal));
     if (n == 0) {
-        obj_emu_demo.Select(0);
+        obj_emu_demo.layer_list.Select(0, true);
     }
 });
 
@@ -59,10 +56,8 @@ layer_delete = new EmuButton(32, EMU_AUTO, 256, 32, "Delete Layer", function() {
     obj_emu_demo.layers[| selection].Destroy();
     ds_list_delete(obj_emu_demo.layers, selection);
     obj_emu_demo.layer_list.ClearSelection();
-    if (selection < ds_list_size(obj_emu_demo.layers) - 1) {
-        obj_emu_demo.Select(selection);
-    } else {
-        obj_emu_demo.Select(undefined);
+    if (selection < ds_list_size(obj_emu_demo.layers)) {
+        obj_emu_demo.layer_list.Select(selection, true);
     }
 });
 layer_delete.SetInteractive(false);
@@ -155,6 +150,15 @@ container.AddContent([
         obj_emu_demo.preview_export_opaque = value;
     }),
 ]);
+
+layer_list.SetCallback(function() {
+    var selection = GetSelection();
+    if (selection == -1) {
+        obj_emu_demo.Select(undefined);
+    } else {
+        obj_emu_demo.Select(GetSelection());
+    }
+});
 
 #region overview and credits
 /*container.AddContent([
