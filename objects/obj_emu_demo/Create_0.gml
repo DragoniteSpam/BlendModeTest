@@ -248,7 +248,21 @@ container.AddContent([
 ]);
 
 layer_presets = new EmuButton(320 + 192 + 16, layer_reset.y, 192, 32, "Presets", function() {
-    var dialog = new EmuDialog(640, 480, "Preset Blend Modes");
+    var dialog = new EmuDialog(320, 400, "Preset Blend Modes");
+    dialog.AddContent([
+        new EmuButton(32, EMU_AUTO, 256, 32, "Multiply", function() {
+            obj_emu_demo.SetExt(bm_inv_dest_color, bm_inv_src_alpha);
+            self.root.Dispose();
+        }),
+        new EmuButton(32, EMU_AUTO, 256, 32, "Screen", function() {
+            obj_emu_demo.SetExt(bm_one, bm_inv_src_color);
+            self.root.Dispose();
+        }),
+        new EmuButton(32, EMU_AUTO, 256, 32, "Linear Dodge", function() {
+            obj_emu_demo.SetExt(bm_one, bm_one);
+            self.root.Dispose();
+        }),
+    ]);
 });
 layer_presets.SetInteractive(false);
 
