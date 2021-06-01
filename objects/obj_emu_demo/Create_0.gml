@@ -266,6 +266,7 @@ layer_presets = new EmuButton(320 + 192 + 16, layer_reset.y, 192, 32, "Presets",
             self.root.Dispose();
         }),
     ]);
+    dialog.active_shade = false;
 });
 layer_presets.SetInteractive(false);
 
