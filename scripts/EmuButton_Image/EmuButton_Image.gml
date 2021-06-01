@@ -6,7 +6,6 @@ function EmuButtonImage(x, y, w, h, sprite, index, blend, alpha, scale_to_fit, c
     self.alpha = alpha;
     self.fill = scale_to_fit;
     self.allow_shrink = true;
-    self.alt_text = "alt text";
     
     self.alignment = fa_center;
     self.valignment = fa_middle;
@@ -48,21 +47,7 @@ function EmuButtonImage(x, y, w, h, sprite, index, blend, alpha, scale_to_fit, c
             } else {
                 var scale = fill ? min(max(width / sprite_get_width(sprite), 1), max(height / sprite_get_height(sprite), 1)) : 1;
             }
-            switch (alignment) {
-                case fa_left: var xx = 0; break;
-                case fa_center: var xx = width / 2; break;
-                case fa_right: var xx = width - 1; break;
-            }
-            switch (valignment) {
-                case fa_top: var yy = 0; break;
-                case fa_middle: var yy = height / 2; break;
-                case fa_bottom: var yy = height - 1; break;
-            }
-            draw_sprite_ext(sprite, _index, xx, yy, scale, scale, 0, blend, alpha);
-        } else {
-            var scribble = scribble_cache(self.alt_text);
-            scribble_set_box_align(fa_center, fa_middle);
-            scribble_draw(width / 2, height / 2, scribble);
+            draw_sprite_ext(sprite, _index, width / 2, height / 2, scale, scale, 0, blend, alpha);
         }
         
         scribble_set_box_align(alignment, valignment);
