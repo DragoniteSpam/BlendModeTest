@@ -56,6 +56,7 @@ Select = function(layer) {
         array_blend_mode_ext_dest.SetInteractive(false);
         load_image_button.SetInteractive(false);
         layer_reset.SetInteractive(false);
+        layer_presets.SetInteractive(false);
     } else {
         var layer_data = layers[| layer];
         layer_name.SetInteractive(true);
@@ -69,6 +70,7 @@ Select = function(layer) {
         array_blend_type.SetValue(layer_data.blend_type);
         load_image_button.SetInteractive(true);
         layer_reset.SetInteractive(true);
+        layer_presets.SetInteractive(true);
         if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
             array_blend_mode_basic.SetInteractive(true);
             array_blend_mode_basic.SetValue(lookup_basic_to_index[$ layer_data.blend_single]);
@@ -222,7 +224,7 @@ array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_i
 array_blend_mode_ext_dest.SetColumns(6, 192);
 array_blend_mode_ext_dest.SetInteractive(false);
 
-layer_reset = new EmuButton(320, EMU_AUTO, 256, 32, "Reset Layer", function() {
+layer_reset = new EmuButton(320, EMU_AUTO, 192, 32, "Reset Layer", function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
     layer_data.Reset();
 });
@@ -235,6 +237,13 @@ container.AddContent([
     array_blend_mode_ext_dest,
     layer_reset,
 ]);
+
+layer_presets = new EmuButton(320 + 192 + 16, layer_reset.y, 192, 32, "Presets", function() {
+    var dialog = new EmuDialog(640, 480, "Preset Blend Modes");
+});
+layer_presets.SetInteractive(false);
+
+container.AddContent(layer_presets);
 
 load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
     var sprite_fn = get_open_filename("Image files|*.png;*.bmp;*jpg;*.jpeg;*", "Select an image");
