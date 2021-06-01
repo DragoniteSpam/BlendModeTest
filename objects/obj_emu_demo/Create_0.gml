@@ -108,6 +108,15 @@ Refresh = function() {
     Select(selection);
 };
 
+SetExt = function(src, dest) {
+    var layer_data = self.GetActiveLayer();
+    layer_data.blend_type = BLEND_TYPE_ADVANCED;
+    layer_data.blend_src = src;
+    layer_data.blend_dest = dest;
+    self.array_blend_type.value = 1;
+    self.Refresh();
+};
+
 layer_list = new EmuList(32, EMU_AUTO, 256, 32, "Layers:", 32, 10, function() { });
 layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
@@ -290,9 +299,7 @@ var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, 256, 32, "Export Ima
         shader_reset();
         
         surface_reset_target();
-        
         surface_save(surface, fn);
-        
         surface_free(surface);
         
         obj_emu_demo.preview_borders = t_borders;
