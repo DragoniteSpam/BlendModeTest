@@ -245,6 +245,7 @@ load_image_button.alt_text = "Click to load";
 load_image_button.SetInteractive(false);
 
 render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
+    gpu_set_colorwriteenable(true, true, true, false);
     if (obj_emu_demo.preview_export_opaque) {
         draw_clear(obj_emu_demo.preview_background_color);
     } else {
@@ -254,6 +255,7 @@ render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
         obj_emu_demo.layers[| i].Render(mx, my);
     }
     gpu_set_blendmode(bm_normal);
+    gpu_set_colorwriteenable(true, true, true, true);
 }, function(mx, my) { }, function() { }, function() { });
 
 container.AddContent([
