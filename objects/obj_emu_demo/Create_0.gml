@@ -262,6 +262,9 @@ layer_presets = new EmuButton(320 + 192 + 16, layer_reset.y, 192, 32, "Presets",
             obj_emu_demo.SetExt(bm_one, bm_one);
             self.root.Dispose();
         }),
+        new EmuButton(32, EMU_AUTO, 256, 32, "Back", function() {
+            self.root.Dispose();
+        }),
     ]);
 });
 layer_presets.SetInteractive(false);
