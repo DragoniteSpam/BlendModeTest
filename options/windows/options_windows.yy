@@ -1,4 +1,5 @@
 {
+  "ConfigValues": {},
   "option_windows_display_name": "Blend Mode Preview",
   "option_windows_executable_name": "bm.exe",
   "option_windows_version": "1.2.2.0",

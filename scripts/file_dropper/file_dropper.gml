@@ -2,6 +2,12 @@
 #macro FILE_DROPPER_DLL_CALLTYPE dll_cdecl
 #macro FILE_DROPPER_VERSION "1.1.0"
 
-var dll_ref = external_define(FILE_DROPPER_DLL, "init", FILE_DROPPER_DLL_CALLTYPE, ty_real, 1, ty_string);
-external_call(dll_ref, window_handle());
-external_free(dll_ref);
+global.__use_file_dropper = true;
+
+try {
+    var dll_ref = external_define(FILE_DROPPER_DLL, "init", FILE_DROPPER_DLL_CALLTYPE, ty_real, 1, ty_string);
+    external_call(dll_ref, window_handle());
+    external_free(dll_ref);
+} catch (e) {
+    global.__use_file_dropper = false;
+}
