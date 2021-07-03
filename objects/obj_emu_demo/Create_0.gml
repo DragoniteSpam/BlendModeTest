@@ -12,44 +12,6 @@ preview_borders = true;
 container = new EmuCore(32, 32, 640, 640);
 container._element_spacing_y = ELEMENT_SPACING;
 
-lookup_basic_to_index = { };
-lookup_basic_to_index[$ bm_normal] = BM_NORMAL;
-lookup_basic_to_index[$ bm_add] = BM_ADD;
-lookup_basic_to_index[$ bm_subtract] = BM_SUBTRACT;
-lookup_basic_to_index[$ bm_max] = BM_MAX;
-
-lookup_index_to_basic = { };
-lookup_index_to_basic[$ BM_NORMAL] = bm_normal;
-lookup_index_to_basic[$ BM_ADD] = bm_add;
-lookup_index_to_basic[$ BM_SUBTRACT] = bm_subtract;
-lookup_index_to_basic[$ BM_MAX] = bm_max;
-
-lookup_ext_to_index = { };
-lookup_ext_to_index[$ bm_zero] = BM_ZERO;
-lookup_ext_to_index[$ bm_one] = BM_ONE;
-lookup_ext_to_index[$ bm_src_color] = BM_SRC_COLOR;
-lookup_ext_to_index[$ bm_inv_src_color] = BM_INV_SRC_COLOR;
-lookup_ext_to_index[$ bm_src_alpha] = BM_SRC_ALPHA;
-lookup_ext_to_index[$ bm_inv_src_alpha] = BM_INV_SRC_ALPHA;
-lookup_ext_to_index[$ bm_dest_alpha] = BM_DEST_ALPHA;
-lookup_ext_to_index[$ bm_inv_dest_alpha] = BM_INV_DEST_ALPHA;
-lookup_ext_to_index[$ bm_dest_color] = BM_DEST_COLOR;
-lookup_ext_to_index[$ bm_inv_dest_color] = BM_INV_DEST_COLOR;
-lookup_ext_to_index[$ bm_src_alpha_sat] = BM_SRC_ALPHA_SAT;
-
-lookup_index_to_ext = { };
-lookup_index_to_ext[$ BM_ZERO] = bm_zero;
-lookup_index_to_ext[$ BM_ONE] = bm_one;
-lookup_index_to_ext[$ BM_SRC_COLOR] = bm_src_color;
-lookup_index_to_ext[$ BM_INV_SRC_COLOR] = bm_inv_src_color;
-lookup_index_to_ext[$ BM_SRC_ALPHA] = bm_src_alpha;
-lookup_index_to_ext[$ BM_INV_SRC_ALPHA] = bm_inv_src_alpha;
-lookup_index_to_ext[$ BM_DEST_ALPHA] = bm_dest_alpha;
-lookup_index_to_ext[$ BM_INV_DEST_ALPHA] = bm_inv_dest_alpha;
-lookup_index_to_ext[$ BM_DEST_COLOR] = bm_dest_color;
-lookup_index_to_ext[$ BM_INV_DEST_COLOR] = bm_inv_dest_color;
-lookup_index_to_ext[$ BM_SRC_ALPHA_SAT] = bm_src_alpha_sat;
-
 Select = function(layer) {
     if (layer == undefined) {
         layer_name.SetInteractive(false);
@@ -81,23 +43,23 @@ Select = function(layer) {
         layer_presets.SetInteractive(true);
         if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
             array_blend_mode_basic.SetInteractive(true);
-            array_blend_mode_basic.SetValue(lookup_basic_to_index[$ layer_data.blend_single]);
+            array_blend_mode_basic.SetValue(global.lookup_basic_to_index[$ layer_data.blend_single]);
             array_blend_mode_ext_src.SetInteractive(false);
             array_blend_mode_ext_dest.SetInteractive(false);
             array_blend_mode_sep_alpha.SetInteractive(false);
         } else if (layer_data.blend_type == BLEND_TYPE_ADVANCED) {
             array_blend_mode_basic.SetInteractive(false);
             array_blend_mode_ext_src.SetInteractive(true);
-            array_blend_mode_ext_src.SetValue(lookup_ext_to_index[$ layer_data.blend_src]);
+            array_blend_mode_ext_src.SetValue(global.lookup_ext_to_index[$ layer_data.blend_src]);
             array_blend_mode_ext_dest.SetInteractive(true);
-            array_blend_mode_ext_dest.SetValue(lookup_ext_to_index[$ layer_data.blend_dest]);
+            array_blend_mode_ext_dest.SetValue(global.lookup_ext_to_index[$ layer_data.blend_dest]);
             array_blend_mode_sep_alpha.SetInteractive(false);
         } else if (layer_data.blend_type == BLEND_TYPE_MORE_ADVANCED) {
             array_blend_mode_basic.SetInteractive(false);
             array_blend_mode_ext_src.SetInteractive(true);
-            array_blend_mode_ext_src.SetValue(lookup_ext_to_index[$ layer_data.blend_src]);
+            array_blend_mode_ext_src.SetValue(global.lookup_ext_to_index[$ layer_data.blend_src]);
             array_blend_mode_ext_dest.SetInteractive(true);
-            array_blend_mode_ext_dest.SetValue(lookup_ext_to_index[$ layer_data.blend_dest]);
+            array_blend_mode_ext_dest.SetValue(global.lookup_ext_to_index[$ layer_data.blend_dest]);
             array_blend_mode_sep_alpha.SetInteractive(true);
         }
         load_image_button.sprite = layer_data.sprite;
@@ -233,7 +195,7 @@ array_blend_type.SetInteractive(false);
 
 array_blend_mode_basic = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Basic Types:", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_single = obj_emu_demo.lookup_index_to_basic[$ value];
+    layer_data.blend_single = obj_emu_demo.global.lookup_index_to_basic[$ value];
 });
 array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
 array_blend_mode_basic.SetColumns(2, 192);
@@ -241,7 +203,7 @@ array_blend_mode_basic.SetInteractive(false);
 
 array_blend_mode_ext_src = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_src = obj_emu_demo.lookup_index_to_ext[$ value];
+    layer_data.blend_src = global.lookup_index_to_ext[$ value];
 });
 array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_src.SetColumns(6, 192);
@@ -249,7 +211,7 @@ array_blend_mode_ext_src.SetInteractive(false);
 
 array_blend_mode_ext_dest = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_dest = obj_emu_demo.lookup_index_to_ext[$ value];
+    layer_data.blend_dest = global.lookup_index_to_ext[$ value];
 });
 array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_dest.SetColumns(6, 192);
@@ -261,13 +223,13 @@ array_blend_mode_sep_alpha = new EmuButton(COL2_X, EMU_AUTO, 192, ELEMENT_HEIGHT
     dialog.AddContent([
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            layer_data.blend_alpha_src = obj_emu_demo.lookup_index_to_ext[$ self.value];
+            layer_data.blend_alpha_src = global.lookup_index_to_ext[$ self.value];
         })
             .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
             .SetColumns(6, 192),
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            layer_data.blend_alpha_dest = obj_emu_demo.lookup_index_to_ext[$ self.value];
+            layer_data.blend_alpha_dest = global.lookup_index_to_ext[$ self.value];
         })
             .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
             .SetColumns(6, 192),

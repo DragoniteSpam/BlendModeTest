@@ -209,3 +209,41 @@ function LayerData(name) constructor {
 #macro BM_DEST_COLOR 8
 #macro BM_INV_DEST_COLOR 9
 #macro BM_SRC_ALPHA_SAT 10
+
+global.lookup_basic_to_index = { };
+global.lookup_basic_to_index[$ bm_normal] = BM_NORMAL;
+global.lookup_basic_to_index[$ bm_add] = BM_ADD;
+global.lookup_basic_to_index[$ bm_subtract] = BM_SUBTRACT;
+global.lookup_basic_to_index[$ bm_max] = BM_MAX;
+
+global.lookup_index_to_basic = { };
+global.lookup_index_to_basic[$ BM_NORMAL] = bm_normal;
+global.lookup_index_to_basic[$ BM_ADD] = bm_add;
+global.lookup_index_to_basic[$ BM_SUBTRACT] = bm_subtract;
+global.lookup_index_to_basic[$ BM_MAX] = bm_max;
+
+global.lookup_ext_to_index = { };
+global.lookup_ext_to_index[$ bm_zero] = BM_ZERO;
+global.lookup_ext_to_index[$ bm_one] = BM_ONE;
+global.lookup_ext_to_index[$ bm_src_color] = BM_SRC_COLOR;
+global.lookup_ext_to_index[$ bm_inv_src_color] = BM_INV_SRC_COLOR;
+global.lookup_ext_to_index[$ bm_src_alpha] = BM_SRC_ALPHA;
+global.lookup_ext_to_index[$ bm_inv_src_alpha] = BM_INV_SRC_ALPHA;
+global.lookup_ext_to_index[$ bm_dest_alpha] = BM_DEST_ALPHA;
+global.lookup_ext_to_index[$ bm_inv_dest_alpha] = BM_INV_DEST_ALPHA;
+global.lookup_ext_to_index[$ bm_dest_color] = BM_DEST_COLOR;
+global.lookup_ext_to_index[$ bm_inv_dest_color] = BM_INV_DEST_COLOR;
+global.lookup_ext_to_index[$ bm_src_alpha_sat] = BM_SRC_ALPHA_SAT;
+
+global.lookup_index_to_ext = { };
+global.lookup_index_to_ext[$ BM_ZERO] = bm_zero;
+global.lookup_index_to_ext[$ BM_ONE] = bm_one;
+global.lookup_index_to_ext[$ BM_SRC_COLOR] = bm_src_color;
+global.lookup_index_to_ext[$ BM_INV_SRC_COLOR] = bm_inv_src_color;
+global.lookup_index_to_ext[$ BM_SRC_ALPHA] = bm_src_alpha;
+global.lookup_index_to_ext[$ BM_INV_SRC_ALPHA] = bm_inv_src_alpha;
+global.lookup_index_to_ext[$ BM_DEST_ALPHA] = bm_dest_alpha;
+global.lookup_index_to_ext[$ BM_INV_DEST_ALPHA] = bm_inv_dest_alpha;
+global.lookup_index_to_ext[$ BM_DEST_COLOR] = bm_dest_color;
+global.lookup_index_to_ext[$ BM_INV_DEST_COLOR] = bm_inv_dest_color;
+global.lookup_index_to_ext[$ BM_SRC_ALPHA_SAT] = bm_src_alpha_sat;
