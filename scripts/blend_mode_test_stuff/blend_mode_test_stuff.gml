@@ -5,6 +5,8 @@ function LayerData(name) constructor {
     self.blend_single = bm_normal;
     self.blend_src = bm_zero;
     self.blend_dest = bm_one;
+    self.blend_alpha_src = bm_zero;
+    self.blend_alpha_dest = bm_one;
     self.enabled = true;
     
     static drag_mode_none = 0;
@@ -44,6 +46,8 @@ function LayerData(name) constructor {
         self.blend_single = bm_normal;
         self.blend_src = bm_zero;
         self.blend_dest = bm_one;
+        self.blend_alpha_src = bm_zero;
+        self.blend_alpha_dest = bm_one;
         obj_emu_demo.Refresh();
     };
     
