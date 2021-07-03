@@ -187,6 +187,7 @@ function LayerData(name) constructor {
 
 #macro BLEND_TYPE_DEFAULT 0
 #macro BLEND_TYPE_ADVANCED 1
+#macro BLEND_TYPE_MORE_ADVANCED 2
 
 #macro BM_NORMAL 0
 #macro BM_ADD 1
