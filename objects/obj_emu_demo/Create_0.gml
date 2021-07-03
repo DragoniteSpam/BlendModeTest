@@ -256,6 +256,20 @@ array_blend_mode_ext_dest.SetColumns(6, 192);
 array_blend_mode_ext_dest.SetInteractive(false);
 
 array_blend_mode_sep_alpha = new EmuButton(COL2_X, EMU_AUTO, 192, ELEMENT_HEIGHT, "Separate Alpha...", function() {
+    var dialog = new EmuDialog(480, 560, "Alpha Modes");
+    
+    dialog.AddContent([
+        new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
+            var layer_data = obj_emu_demo.GetActiveLayer();
+        })
+            .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
+            .SetColumns(6, 192),
+        new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
+            var layer_data = obj_emu_demo.GetActiveLayer();
+        })
+            .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
+            .SetColumns(6, 192),
+    ]);
 });
 array_blend_mode_sep_alpha.SetInteractive(false);
 
