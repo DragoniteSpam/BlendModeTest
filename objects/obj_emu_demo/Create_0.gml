@@ -223,13 +223,15 @@ array_blend_mode_sep_alpha = new EmuButton(COL2_X, EMU_AUTO, 192, ELEMENT_HEIGHT
     dialog.AddContent([
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            layer_data.blend_alpha_src = global.lookup_index_to_ext[$ self.value];
+            // really dont know why trying to use the struct accessor here is causing it to break
+            layer_data.blend_alpha_src = variable_struct_get(global.lookup_index_to_ext, self.value);
         })
             .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
             .SetColumns(6, 192),
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            layer_data.blend_alpha_dest = global.lookup_index_to_ext[$ self.value];
+            // really dont know why trying to use the struct accessor here is causing it to break
+            layer_data.blend_alpha_dest = variable_struct_get(global.lookup_index_to_ext, self.value);
         })
             .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
             .SetColumns(6, 192),
