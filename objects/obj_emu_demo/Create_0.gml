@@ -195,7 +195,7 @@ array_blend_type.SetInteractive(false);
 
 array_blend_mode_basic = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Basic Types:", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_single = obj_emu_demo.global.lookup_index_to_basic[$ value];
+    layer_data.blend_single = global.lookup_index_to_basic[$ self.value];
 });
 array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
 array_blend_mode_basic.SetColumns(2, 192);
@@ -203,7 +203,7 @@ array_blend_mode_basic.SetInteractive(false);
 
 array_blend_mode_ext_src = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_src = global.lookup_index_to_ext[$ value];
+    layer_data.blend_src = global.lookup_index_to_ext[$ self.value];
 });
 array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_src.SetColumns(6, 192);
@@ -211,7 +211,7 @@ array_blend_mode_ext_src.SetInteractive(false);
 
 array_blend_mode_ext_dest = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
-    layer_data.blend_dest = global.lookup_index_to_ext[$ value];
+    layer_data.blend_dest = global.lookup_index_to_ext[$ self.value];
 });
 array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
 array_blend_mode_ext_dest.SetColumns(6, 192);

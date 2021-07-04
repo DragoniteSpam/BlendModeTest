@@ -156,12 +156,13 @@ function LayerData(name) constructor {
                     self.locked_drag_mode = drag_mode_none;
                 }
             }
+            
             if (self.blend_type == BLEND_TYPE_DEFAULT) {
                 gpu_set_blendmode(self.blend_single);
             } else if (self.blend_type == BLEND_TYPE_MORE_ADVANCED) {
-                gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
-            } else {
                 gpu_set_blendmode_ext_sepalpha(self.blend_src, self.blend_dest, self.blend_alpha_src, self.blend_alpha_dest);
+            } else {
+                gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
             }
             draw_sprite_stretched(self.sprite, 0, self.x, self.y, self.width, self.height);
             if (obj_emu_demo.GetActiveLayer() == self) {
