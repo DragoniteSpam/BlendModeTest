@@ -4,7 +4,7 @@
 #macro COL2_X 320
 #macro ELEMENT_SPACING 12
 
-layers = ds_list_create();
+layers = [];
 preview_background_color = c_black;
 preview_export_opaque = false;
 preview_borders = true;
@@ -28,14 +28,14 @@ Select = function(layer) {
         layer_reset.SetInteractive(false);
         layer_presets.SetInteractive(false);
     } else {
-        var layer_data = layers[| layer];
+        var layer_data = layers[layer];
         layer_name.SetInteractive(true);
         layer_name.SetValue(layer_data.name);
         layer_enabled.SetInteractive(true);
         layer_enabled.SetValue(layer_data.enabled);
         layer_delete.SetInteractive(true);
         layer_move_up.SetInteractive(layer > 0);
-        layer_move_down.SetInteractive(layer < ds_list_size(layers) - 1);
+        layer_move_down.SetInteractive(layer < array_length(layers) - 1);
         array_blend_type.SetInteractive(true);
         array_blend_type.SetValue(layer_data.blend_type);
         load_image_button.SetInteractive(true);
@@ -66,7 +66,7 @@ Select = function(layer) {
         load_image_button.alignment = fa_left;
         load_image_button.valignment = fa_top;
     }
-    if (ds_list_size(layers) == 255) {
+    if (array_length(layers) == 255) {
         layer_add.SetInteractive(false);
     } else {
         layer_add.SetInteractive(true);
@@ -76,8 +76,8 @@ Select = function(layer) {
 Refresh = function() {
     var selection = layer_list.GetSelection();
     if (selection == -1) {
-        if (!ds_list_empty(layers)) {
-            selection = ds_list_size(layers) - 1;
+        if (array_length(layers) > 0) {
+            selection = array_length(layers) - 1;
             layer_list.Select(selection);
             return;
         } else {
@@ -101,7 +101,7 @@ layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
 layer_list.getListColors = method(layer_list, function(index) {
-    return obj_emu_demo.layers[| index].enabled ? EMU_COLOR_LIST_TEXT : EMU_COLOR_INPUT_REJECT;
+    return obj_emu_demo.layers[index].enabled ? EMU_COLOR_LIST_TEXT : EMU_COLOR_INPUT_REJECT;
 });
 layer_list.SetCallbackMiddle(function(index) {
     obj_emu_demo.GetActiveLayer().enabled = !obj_emu_demo.GetActiveLayer().enabled;
@@ -109,18 +109,18 @@ layer_list.SetCallbackMiddle(function(index) {
 });
 
 GetActiveLayer = function() {
-    return layers[| layer_list.GetSelection()];
+    return layers[layer_list.GetSelection()];
 };
 
 layer_add = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Add Layer", function() {
-    var n = ds_list_size(obj_emu_demo.layers);
-    ds_list_add(obj_emu_demo.layers, new LayerData("Layer" + string(n)));
+    var n = array_length(obj_emu_demo.layers);
+    array_push(obj_emu_demo.layers, new LayerData("Layer" + string(n)));
     if (n == 0) {
         obj_emu_demo.layer_list.Select(0, true);
     } else {
         obj_emu_demo.Refresh();
     }
-    if (ds_list_size(obj_emu_demo.layers) >= 12) {
+    if (array_length(obj_emu_demo.layers) >= 12) {
         self.interactive = false;
     }
 });
@@ -138,10 +138,10 @@ layer_name.SetInteractive(false);
 
 layer_delete = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Delete Layer", function() {
     var selection = obj_emu_demo.layer_list.GetSelection();
-    obj_emu_demo.layers[| selection].Destroy();
-    ds_list_delete(obj_emu_demo.layers, selection);
+    obj_emu_demo.layers[selection].Destroy();
+    array_delete(obj_emu_demo.layers, selection, 1);
     obj_emu_demo.layer_list.ClearSelection();
-    if (selection < ds_list_size(obj_emu_demo.layers)) {
+    if (selection < array_length(obj_emu_demo.layers)) {
         obj_emu_demo.layer_list.Select(selection, true);
     }
     obj_emu_demo.layer_add.interactive = true;
@@ -151,9 +151,9 @@ layer_delete.SetInteractive(false);
 // these two are confusing because moving up involves decreasing your position in the list
 layer_move_up = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Move Layer Up", function() {
     var index = obj_emu_demo.layer_list.GetSelection();
-    var t = obj_emu_demo.layers[| index];
-    obj_emu_demo.layers[| index] = obj_emu_demo.layers[| index - 1];
-    obj_emu_demo.layers[| index - 1] = t;
+    var t = obj_emu_demo.layers[index];
+    obj_emu_demo.layers[index] = obj_emu_demo.layers[index - 1];
+    obj_emu_demo.layers[index - 1] = t;
     obj_emu_demo.layer_list.ClearSelection();
     obj_emu_demo.layer_list.Select(index - 1, true);
 });
@@ -161,9 +161,9 @@ layer_move_up.SetInteractive(false);
 
 layer_move_down = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Move Layer Down", function() {
     var index = obj_emu_demo.layer_list.GetSelection();
-    var t = obj_emu_demo.layers[| index];
-    obj_emu_demo.layers[| index] = obj_emu_demo.layers[| index + 1];
-    obj_emu_demo.layers[| index + 1] = t;
+    var t = obj_emu_demo.layers[index];
+    obj_emu_demo.layers[index] = obj_emu_demo.layers[index + 1];
+    obj_emu_demo.layers[index + 1] = t;
     obj_emu_demo.layer_list.ClearSelection();
     obj_emu_demo.layer_list.Select(index + 1, true);
 });
@@ -253,18 +253,18 @@ layer_presets = new EmuButton(COL2_X + 192 + 16, array_blend_mode_sep_alpha.y, 1
     dialog.AddContent([
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Multiply", function() {
             obj_emu_demo.SetExt(bm_inv_dest_color, bm_inv_src_alpha);
-            self.root.Dispose();
+            self.root.Close();
         }),
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Screen", function() {
             obj_emu_demo.SetExt(bm_one, bm_inv_src_color);
-            self.root.Dispose();
+            self.root.Close();
         }),
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Linear Dodge", function() {
             obj_emu_demo.SetExt(bm_one, bm_one);
-            self.root.Dispose();
+            self.root.Close();
         }),
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Back", function() {
-            self.root.Dispose();
+            self.root.Close();
         }),
     ]);
     dialog.active_shade = false;
@@ -296,8 +296,8 @@ render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
     } else {
         drawCheckerbox(0, 0, width, height, 1, 1, c_white, 1);
     }
-    for (var i = ds_list_size(obj_emu_demo.layers) - 1; i >= 0; i--) {
-        obj_emu_demo.layers[| i].Render(mx, my);
+    for (var i = array_length(obj_emu_demo.layers) - 1; i >= 0; i--) {
+        obj_emu_demo.layers[i].Render(mx, my);
     }
     gpu_set_blendmode(bm_normal);
     gpu_set_colorwriteenable(true, true, true, true);

@@ -1,138 +1,166 @@
 // Emu (c) 2020 @dragonitespam
-// See the Github wiki for documentation: https://github.com/DragoniteSpam/Emu/wiki
-function EmuBitfield(x, y, w, h, value, callback) : EmuCallback(x, y, w, h, value, callback) constructor {
+// See the Github wiki for documentation: https://github.com/DragoniteSpam/Documentation/wiki/Emu
+function EmuBitfield(x, y, w, h, value, callback) : EmuCallback(x, y, w, h, "bitfield", value, callback) constructor {
     enum E_BitfieldOrientations { HORIZONTAL, VERTICAL };
     
-    self._fixed_spacing = -1;
-    self._orientation = E_BitfieldOrientations.HORIZONTAL;
+    /// @ignore
+    self.fixed_spacing = -1;
+    /// @ignore
+    self.orientation = E_BitfieldOrientations.HORIZONTAL;
     
-    SetOrientation = function(orientation) {
-        _orientation = orientation;
-        ArrangeElements();
-    }
+    #region mutators
+    static SetFixedSpacing = function(spacing) {
+        self.fixed_spacing = spacing;
+        self.ArrangeElements();
+        return self;
+    };
     
-    SetFixedSpacing = function(spacing) {
-        _fixed_spacing = spacing;
-        ArrangeElements();
-    }
+    static SetAutoSpacing = function() {
+        self.fixed_spacing = -1;
+        self.ArrangeElements();
+        return self;
+    };
     
-    SetAutoSpacing = function() {
-        _fixed_spacing = -1;
-        ArrangeElements();
-    }
+    static SetOrientation = function(orientation) {
+        self.orientation = orientation;
+        self.ArrangeElements();
+        return self;
+    };
+    #endregion
     
-    AddOptions = function(elements) {
+    #region accessors
+    static GetHeight = function() {
+        var first = self.contents[0];
+        var last = self.contents[array_length(self.contents) - 1];
+        return (first == undefined) ? self.height : (last.y + last.height - first.y);
+    };
+    #endregion
+    
+    #region other methods
+    static AddOptions = function(elements) {
         if (!is_array(elements)) {
             elements = [elements];
         }
         
         for (var i = 0; i < array_length(elements); i++) {
             if (!is_struct(elements[i])) {
-                elements[i] = new EmuBitfieldOption(string(elements[i]), 1 << (ds_list_size(_contents) + i),
-                function() {
-                    root.value ^= value;
-                    root.callback();
-                },
-                function() {
-                    return (root.value & value) == value;
-                });
+                elements[i] = new EmuBitfieldOption(string(elements[i]), 1 << (array_length(self.contents) + i),
+                    function() {
+                        self.root.value ^= self.value;
+                        self.root.callback();
+                    },
+                    function() {
+                        return (self.root.value & self.value) == self.value;
+                    }
+                );
             }
         }
         
-        AddContent(elements);
-        ArrangeElements();
-    }
+        self.AddContent(elements);
+        self.ArrangeElements();
+        return self;
+    };
     
-    ArrangeElements = function() {
-        if (_orientation == E_BitfieldOrientations.HORIZONTAL) {
-            for (var i = 0; i < ds_list_size(_contents); i++) {
-                var option = _contents[| i];
-                option.width = (_fixed_spacing == -1) ? floor(width / ds_list_size(_contents)) : _fixed_spacing;
-                option.height = height;
+    static ArrangeElements = function() {
+        if (self.orientation == E_BitfieldOrientations.HORIZONTAL) {
+            for (var i = 0, n = array_length(self.contents); i < n; i++) {
+                var option = self.contents[i];
+                option.width = (self.fixed_spacing == -1) ? floor(self.width / n) : self.fixed_spacing;
+                option.height = self.height;
                 option.x = option.width * i;
                 option.y = 0;
             }
         } else {
-            for (var i = 0; i < ds_list_size(_contents); i++) {
-                var option = _contents[| i];
-                option.width = width;
-                option.height = (_fixed_spacing == -1) ? floor(height / ds_list_size(_contents)) : _fixed_spacing;
+            for (var i = 0, n = array_length(self.contents); i < n; i++) {
+                var option = self.contents[i];
+                option.width = self.width;
+                option.height = (self.fixed_spacing == -1) ? floor(self.height / n) : self.fixed_spacing;
                 option.x = 0;
                 option.y = option.height * i;
             }
         }
-    }
+        return self;
+    };
     
-    GetHeight = function() {
-        var first = _contents[| 0];
-        var last = _contents[| ds_list_size(_contents) - 1];
-        return (first == undefined) ? height : (last.y + last.height - first.y);
-    }
-    
-    Render = function(base_x, base_y) {
-        processAdvancement();
+    static Render = function(x, y) {
+        self.gc.Clean();
+        self.processAdvancement();
         
-        var x1 = x + base_x;
-        var y1 = y + base_y;
-        var x2 = x1 + width;
-        var y2 = y1 + height;
+        var x1 = self.x + x;
+        var y1 = self.y + y;
+        var x2 = x1 + self.width;
+        var y2 = y1 + self.height;
         
-        renderContents(x1, y1);
-    }
+        self.renderContents(x1, y1);
+    };
+    #endregion
 }
 
-function EmuBitfieldOption(text, value, callback, eval) : EmuCallback(0, 0, 0, 0, value, callback) constructor {
-    SetEval = function(eval) {
-        evaluate = method(self, eval);
-    }
+function EmuBitfieldOption(text, value, callback, eval) : EmuCallback(0, 0, 0, 0, text, value, callback) constructor {
+    /// @ignore
+    self.eval = method(self, eval);
     
-    self.text = text;
-    SetEval(eval);
+    /// @ignore
+    self.color_hover = function() { return EMU_COLOR_HOVER };
+    /// @ignore
+    self.color_disabled = function() { return EMU_COLOR_DISABLED };
+    /// @ignore
+    self.color_active = function() { return EMU_COLOR_SELECTED };
+    /// @ignore
+    self.color_inactive = function() { return EMU_COLOR_BACK };
     
-    self.color_hover = EMU_COLOR_HOVER;
-    self.color_disabled = EMU_COLOR_DISABLED;
-    self.color_active = EMU_COLOR_SELECTED;
-    self.color_inactive = EMU_COLOR_BACK;
+    #region mutators
+    static SetEval = function(eval) {
+        self.evaluate = method(self, eval);
+    };
+    #endregion
     
-    Render = function(base_x, base_y) {
-        var x1 = x + base_x;
-        var y1 = y + base_y;
-        var x2 = x1 + width;
-        var y2 = y1 + height;
+    #region accessors
+    static GetInteractive = function() {
+        return self.enabled && self.interactive && self.root.interactive && self.root.isActiveDialog();
+    };
+    #endregion
+    
+    #region other methods
+    static Render = function(x, y) {
+        self.gc.Clean();
+        var x1 = self.x + x;
+        var y1 = self.y + y;
+        var x2 = x1 + self.width;
+        var y2 = y1 + self.height;
         
-        var back_color = evaluate() ? color_active : color_inactive;
+        var back_color = self.evaluate() ? self.color_active() : self.color_inactive();
         
-        if (root.GetInteractive()) {
-            back_color = merge_colour(back_color, getMouseHover(x1, y1, x2, y2) ? color_hover : back_color, 0.5);
+        if (self.root.GetInteractive()) {
+            back_color = merge_colour(back_color, self.getMouseHover(x1, y1, x2, y2) ? self.color_hover() : back_color, 0.5);
         } else {
-            back_color = merge_colour(back_color, color_disabled, 0.5);
+            back_color = merge_colour(back_color, self.color_disabled(), 0.5);
         }
         
-        draw_sprite_stretched_ext(sprite_nineslice, 1, x1, y1, x2 - x1, y2 - y1, back_color, 1);
-        draw_sprite_stretched_ext(sprite_nineslice, 0, x1, y1, x2 - x1, y2 - y1, color, 1);
-        scribble_set_box_align(fa_center, fa_middle);
-        scribble_draw(floor(mean(x1, x2)), floor(mean(y1, y2)), text);
+        draw_sprite_stretched_ext(self.sprite_nineslice, 1, x1, y1, x2 - x1, y2 - y1, back_color, 1);
+        draw_sprite_stretched_ext(self.sprite_nineslice, 0, x1, y1, x2 - x1, y2 - y1, self.color(), 1);
         
-        if (getMouseHover(x1, y1, x2, y2)) {
-            ShowTooltip();
+        scribble(self.text)
+            .align(fa_center, fa_middle)
+            .draw(floor(mean(x1, x2)), floor(mean(y1, y2)));
+        
+        if (self.getMouseHover(x1, y1, x2, y2)) {
+            self.ShowTooltip();
         }
         
-        if (getMousePressed(x1, y1, x2, y2)) {
-            callback();
+        if (self.getMousePressed(x1, y1, x2, y2)) {
+            self.callback();
         }
-    }
-    
-    GetInteractive = function() {
-        return enabled && interactive && root.interactive && root.isActiveDialog();
-    }
+    };
+    #endregion
 }
 
 // You may find yourself using these particularly often
 function emu_bitfield_option_exact_callback() {
-    root.value = value;
-    root.callback();
+    self.root.value = self.value;
+    self.root.callback();
 }
 
 function emu_bitfield_option_exact_eval() {
-    return root.value == value;
+    return self.root.value == self.value;
 };
