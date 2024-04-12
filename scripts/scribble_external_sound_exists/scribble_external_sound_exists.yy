@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Miscellaneous",
-    "path": "folders/Scribble/Miscellaneous.yy",
+  "$GMScript":"",
+  "%Name":"scribble_external_sound_exists",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_external_sound_exists",
+  "parent":{
+    "name":"Miscellaneous",
+    "path":"folders/Scribble/Miscellaneous.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "scribble_external_sound_exists",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

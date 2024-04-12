@@ -1,10 +1,11 @@
 {
-  "parent": {
-    "name": "Emu",
-    "path": "folders/Emu.yy",
+  "$GMNotes":"",
+  "%Name":"readme_please",
+  "name":"readme_please",
+  "parent":{
+    "name":"Emu",
+    "path":"folders/Emu.yy",
   },
-  "resourceVersion": "1.1",
-  "name": "readme_please",
-  "tags": [],
-  "resourceType": "GMNotes",
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
 }

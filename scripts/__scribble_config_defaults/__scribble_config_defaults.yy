@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Configuration - Please edit these!",
-    "path": "folders/Scribble/Configuration - Please edit these!.yy",
+  "$GMScript":"",
+  "%Name":"__scribble_config_defaults",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__scribble_config_defaults",
+  "parent":{
+    "name":"Configuration - Please edit these!",
+    "path":"folders/Scribble/Configuration - Please edit these!.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "__scribble_config_defaults",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

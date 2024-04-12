@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "File Dropper",
-    "path": "folders/File Dropper.yy",
+  "$GMScript":"",
+  "%Name":"file_dropper_version",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"file_dropper_version",
+  "parent":{
+    "name":"File Dropper",
+    "path":"folders/File Dropper.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "file_dropper_version",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

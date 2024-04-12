@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Core",
-    "path": "folders/Emu/Core.yy",
+  "$GMScript":"",
+  "%Name":"EmuProgressBar",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"EmuProgressBar",
+  "parent":{
+    "name":"Core",
+    "path":"folders/Emu/Core.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "EmuProgressBar",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

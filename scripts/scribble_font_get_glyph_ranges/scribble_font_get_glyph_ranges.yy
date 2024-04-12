@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Fonts",
-    "path": "folders/Scribble/Fonts.yy",
+  "$GMScript":"",
+  "%Name":"scribble_font_get_glyph_ranges",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_font_get_glyph_ranges",
+  "parent":{
+    "name":"Fonts",
+    "path":"folders/Scribble/Fonts.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "scribble_font_get_glyph_ranges",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

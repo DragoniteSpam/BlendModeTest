@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Core",
-    "path": "folders/Emu/Core.yy",
+  "$GMScript":"",
+  "%Name":"EmuButton_Image",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"EmuButton_Image",
+  "parent":{
+    "name":"Core",
+    "path":"folders/Emu/Core.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "EmuButton_Image",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

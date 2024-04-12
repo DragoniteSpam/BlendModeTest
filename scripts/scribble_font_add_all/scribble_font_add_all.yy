@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Deprecated",
-    "path": "folders/Scribble/(System - don't call these functions)/Deprecated.yy",
+  "$GMScript":"",
+  "%Name":"scribble_font_add_all",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_font_add_all",
+  "parent":{
+    "name":"Deprecated",
+    "path":"folders/Scribble/(System - don't call these functions)/Deprecated.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "scribble_font_add_all",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

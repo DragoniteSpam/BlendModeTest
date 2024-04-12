@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Blend Mode Test",
-    "path": "Blend Mode Test.yyp",
+  "$GMScript":"",
+  "%Name":"blend_mode_test_stuff",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"blend_mode_test_stuff",
+  "parent":{
+    "name":"Blend Mode Test",
+    "path":"Blend Mode Test.yyp",
   },
-  "resourceVersion": "1.0",
-  "name": "blend_mode_test_stuff",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Animation",
-    "path": "folders/Scribble/Animation.yy",
+  "$GMScript":"",
+  "%Name":"scribble_anim_jitter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_anim_jitter",
+  "parent":{
+    "name":"Animation",
+    "path":"folders/Scribble/Animation.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "scribble_anim_jitter",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

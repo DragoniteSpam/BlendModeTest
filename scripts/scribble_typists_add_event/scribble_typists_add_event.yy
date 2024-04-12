@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Miscellaneous",
-    "path": "folders/Scribble/Miscellaneous.yy",
+  "$GMScript":"",
+  "%Name":"scribble_typists_add_event",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scribble_typists_add_event",
+  "parent":{
+    "name":"Miscellaneous",
+    "path":"folders/Scribble/Miscellaneous.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "scribble_typists_add_event",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
