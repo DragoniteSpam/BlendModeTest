@@ -1,6 +1,9 @@
 {
-  "FolderOrderSettings":[],
+  "FolderOrderSettings":[
+    {"name":"File Dropper","order":7,"path":"folders/File Dropper.yy",},
+  ],
   "ResourceOrderSettings":[
+    {"name":"FileDropper","order":3,"path":"extensions/FileDropper/FileDropper.yy",},
     {"name":"fnt_emu_default","order":19,"path":"fonts/fnt_emu_default/fnt_emu_default.yy",},
     {"name":"scribble_fallback_font","order":11,"path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},
     {"name":"readme_please","order":5,"path":"notes/readme_please/readme_please.yy",},

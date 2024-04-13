@@ -30,7 +30,6 @@
   ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"fnt_emu_default.yy","CopyToMask":-1,"filePath":"datafiles/emu","name":"fnt_emu_default.yy","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"FileDropper.dll","CopyToMask":-1,"filePath":"datafiles","name":"FileDropper.dll","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"Open Sans License.txt","CopyToMask":-1,"filePath":"datafiles","name":"Open Sans License.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
@@ -40,6 +39,7 @@
   },
   "name":"Blend Mode Test",
   "resources":[
+    {"id":{"name":"FileDropper","path":"extensions/FileDropper/FileDropper.yy",},},
     {"id":{"name":"fnt_emu_default","path":"fonts/fnt_emu_default/fnt_emu_default.yy",},},
     {"id":{"name":"scribble_fallback_font","path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},},
     {"id":{"name":"readme_please","path":"notes/readme_please/readme_please.yy",},},
