@@ -115,7 +115,9 @@ layer_list.SetCallbackMiddle(function(index) {
 });
 
 GetActiveLayer = function() {
-    return layers[layer_list.GetSelection()];
+	var selected = layer_list.GetSelection();
+	if (selected == -1) return undefined;
+	return layers[selected];
 };
 
 layer_add = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Add Layer", function() {
