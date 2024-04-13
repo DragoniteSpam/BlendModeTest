@@ -17,7 +17,13 @@ if (array_length(files) > 0) {
 	        if (sprite_exists(sprite)) {
 				var layer_number = array_length(self.layers);
 				var new_layer = new LayerData("Layer" + string(layer_number));
-			    array_push(self.layers, new_layer);
+				var selection = obj_emu_demo.layer_list.GetSelection();
+				if (selection != -1) {
+					array_insert(self.layers, selection, new_layer);
+				} else {
+					array_push(obj_emu_demo.layers, new_layer);
+				}
+				
 				new_layer.SetSprite(sprite);
 			    if (layer_number == 0) {
 			        self.layer_list.Select(0, true);

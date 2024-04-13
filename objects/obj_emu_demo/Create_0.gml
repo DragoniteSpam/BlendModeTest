@@ -122,7 +122,12 @@ GetActiveLayer = function() {
 
 layer_add = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Add Layer", function() {
     var n = array_length(obj_emu_demo.layers);
-    array_push(obj_emu_demo.layers, new LayerData("Layer" + string(n)));
+	var selection = obj_emu_demo.layer_list.GetSelection();
+	if (selection != -1) {
+		array_insert(obj_emu_demo.layers, selection, new LayerData("Layer" + string(n)));
+	} else {
+		array_push(obj_emu_demo.layers, new LayerData("Layer" + string(n)));
+	}
     if (n == 0) {
         obj_emu_demo.layer_list.Select(0, true);
     } else {
