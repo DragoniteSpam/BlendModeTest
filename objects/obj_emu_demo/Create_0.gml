@@ -276,7 +276,7 @@ layer_presets = new EmuButton(COL2_X + 192 + 16, array_blend_mode_sep_alpha.y, 1
     dialog._element_spacing_y = ELEMENT_SPACING;
     dialog.AddContent([
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Multiply", function() {
-            obj_emu_demo.SetExt(bm_inv_dest_color, bm_inv_src_alpha);
+            obj_emu_demo.SetExt(bm_dest_color, bm_inv_src_alpha);
             self.root.Close();
         }),
         new EmuButton(32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Screen", function() {
