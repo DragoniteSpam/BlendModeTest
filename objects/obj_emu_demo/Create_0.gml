@@ -1,8 +1,8 @@
-#macro ELEMENT_WIDTH 256
-#macro ELEMENT_HEIGHT 28
-#macro COL1_X 32
-#macro COL2_X 320
-#macro ELEMENT_SPACING 12
+#macro ELEMENT_WIDTH 264
+#macro ELEMENT_HEIGHT 24
+#macro COL1_X 16
+#macro COL2_X 304
+#macro ELEMENT_SPACING 8
 
 layers = [];
 preview_background_color = c_black;
@@ -27,6 +27,8 @@ Select = function(layer) {
         load_image_button.SetInteractive(false);
         layer_reset.SetInteractive(false);
         layer_presets.SetInteractive(false);
+		array_blend_equation.SetInteractive(false);
+		array_blend_equation_alpha.SetInteractive(false);
     } else {
         var layer_data = layers[layer];
         layer_name.SetInteractive(true);
@@ -41,6 +43,10 @@ Select = function(layer) {
         load_image_button.SetInteractive(true);
         layer_reset.SetInteractive(true);
         layer_presets.SetInteractive(true);
+		array_blend_equation.SetInteractive(true);
+		array_blend_equation_alpha.SetInteractive(true);
+		array_blend_equation.SetValue(global.lookup_equation_to_index[$ layer_data.blend_equation]);
+		array_blend_equation_alpha.SetValue(global.lookup_equation_to_index[$ layer_data.blend_equation_alpha]);
         if (layer_data.blend_type == BLEND_TYPE_DEFAULT) {
             array_blend_mode_basic.SetInteractive(true);
             array_blend_mode_basic.SetValue(global.lookup_basic_to_index[$ layer_data.blend_single]);
@@ -96,7 +102,7 @@ SetExt = function(src, dest) {
     self.Refresh();
 };
 
-layer_list = new EmuList(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Layers:", ELEMENT_HEIGHT, 14, function() { });
+layer_list = new EmuList(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Layers:", ELEMENT_HEIGHT, 16, function() { });
 layer_list.SetList(layers);
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
@@ -197,7 +203,7 @@ array_blend_mode_basic = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEM
     var layer_data = obj_emu_demo.GetActiveLayer();
     layer_data.blend_single = global.lookup_index_to_basic[$ self.value];
 });
-array_blend_mode_basic.AddOptions(["bm_normal", "bm_add", "bm_subtract", "bm_max"]);
+array_blend_mode_basic.AddOptions(["Normal", "Add", "Subtract", "Max"]);
 array_blend_mode_basic.SetColumns(2, 192);
 array_blend_mode_basic.SetInteractive(false);
 
@@ -205,16 +211,16 @@ array_blend_mode_ext_src = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, EL
     var layer_data = obj_emu_demo.GetActiveLayer();
     layer_data.blend_src = global.lookup_index_to_ext[$ self.value];
 });
-array_blend_mode_ext_src.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
-array_blend_mode_ext_src.SetColumns(6, 192);
+array_blend_mode_ext_src.AddOptions(["Zero", "One", "Src Color", "Inv Src Color", "Src Alpha", "Inv Src Alpha", "Dest Alpha", "Inv Dest Alpha", "Dest Color", "Inv Dest Color", "Src Alpha Sat"]);
+array_blend_mode_ext_src.SetColumns(4, 128);
 array_blend_mode_ext_src.SetInteractive(false);
 
 array_blend_mode_ext_dest = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
     var layer_data = obj_emu_demo.GetActiveLayer();
     layer_data.blend_dest = global.lookup_index_to_ext[$ self.value];
 });
-array_blend_mode_ext_dest.AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"]);
-array_blend_mode_ext_dest.SetColumns(6, 192);
+array_blend_mode_ext_dest.AddOptions(["Zero", "One", "Src Color", "Inv Src Color", "Src Alpha", "Inv Src Alpha", "Dest Alpha", "Inv Dest Alpha", "Dest Color", "Inv Dest Color", "Src Alpha Sat"]);
+array_blend_mode_ext_dest.SetColumns(4, 128);
 array_blend_mode_ext_dest.SetInteractive(false);
 
 array_blend_mode_sep_alpha = new EmuButton(COL2_X, EMU_AUTO, 192, ELEMENT_HEIGHT, "Separate Alpha...", function() {
@@ -223,28 +229,44 @@ array_blend_mode_sep_alpha = new EmuButton(COL2_X, EMU_AUTO, 192, ELEMENT_HEIGHT
     dialog.AddContent([
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Source):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            // really dont know why trying to use the struct accessor here is causing it to break
             layer_data.blend_alpha_src = variable_struct_get(global.lookup_index_to_ext, self.value);
         })
-            .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
+            .AddOptions(["Zero", "One", "Src Color", "Inv Src Color", "Src Alpha", "Inv Src Alpha", "Dest Alpha", "Inv Dest Alpha", "Dest Color", "Inv Dest Color", "Src Alpha Sat"])
             .SetColumns(6, 192),
         new EmuRadioArray(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Extended Types (Destination):", 0, function() {
             var layer_data = obj_emu_demo.GetActiveLayer();
-            // really dont know why trying to use the struct accessor here is causing it to break
             layer_data.blend_alpha_dest = variable_struct_get(global.lookup_index_to_ext, self.value);
         })
-            .AddOptions(["bm_zero", "bm_one", "bm_src_color", "bm_inv_src_color", "bm_src_alpha", "bm_inv_src_alpha", "bm_dest_alpha", "bm_inv_dest_alpha", "bm_dest_color", "bm_inv_dest_color", "bm_src_alpha_sat"])
+            .AddOptions(["Zero", "One", "Src Color", "Inv Src Color", "Src Alpha", "Inv Src Alpha", "Dest Alpha", "Inv Dest Alpha", "Dest Color", "Inv Dest Color", "Src Alpha Sat"])
             .SetColumns(6, 192),
     ]);
 });
 array_blend_mode_sep_alpha.SetInteractive(false);
+
+array_blend_equation = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Blend Equation:", 0, function() {
+    var layer_data = obj_emu_demo.GetActiveLayer();
+	layer_data.blend_equation = global.lookup_index_to_equation[$ value];
+    obj_emu_demo.Refresh();
+});
+array_blend_equation.AddOptions(["Add", "Subtract", "Inv Subtract", "Min", "Max"]);
+array_blend_equation.SetColumns(2, 128);
+array_blend_equation.SetInteractive(false);
+
+array_blend_equation_alpha = new EmuRadioArray(COL2_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Blend Equation (Alpha):", 0, function() {
+    var layer_data = obj_emu_demo.GetActiveLayer();
+	layer_data.blend_equation_alpha = global.lookup_index_to_equation[$ value];
+    obj_emu_demo.Refresh();
+});
+array_blend_equation_alpha.AddOptions(["Add", "Subtract", "Inv Subtract", "Min", "Max"]);
+array_blend_equation_alpha.SetColumns(2, 128);
+array_blend_equation_alpha.SetInteractive(false);
 
 container.AddContent([
     array_blend_type,
     array_blend_mode_basic,
     array_blend_mode_ext_src,
     array_blend_mode_ext_dest,
-    array_blend_mode_sep_alpha,
+    array_blend_mode_sep_alpha
 ]);
 
 layer_presets = new EmuButton(COL2_X + 192 + 16, array_blend_mode_sep_alpha.y, 192, ELEMENT_HEIGHT, "Presets", function() {
@@ -271,7 +293,11 @@ layer_presets = new EmuButton(COL2_X + 192 + 16, array_blend_mode_sep_alpha.y, 1
 });
 layer_presets.SetInteractive(false);
 
-container.AddContent(layer_presets);
+container.AddContent([
+	layer_presets,
+	array_blend_equation,
+	array_blend_equation_alpha
+]);
 
 layer_reset = new EmuButton(COL2_X, EMU_AUTO, 400, ELEMENT_HEIGHT, "Reset Layer", function() {
     var layer_data = obj_emu_demo.GetActiveLayer();

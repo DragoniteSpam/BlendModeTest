@@ -7,6 +7,8 @@ function LayerData(name) constructor {
     self.blend_dest = bm_one;
     self.blend_alpha_src = bm_zero;
     self.blend_alpha_dest = bm_one;
+	self.blend_equation = bm_eq_add;
+	self.blend_equation_alpha = bm_eq_add;
     self.enabled = true;
     
     static drag_mode_none = 0;
@@ -48,6 +50,8 @@ function LayerData(name) constructor {
         self.blend_dest = bm_one;
         self.blend_alpha_src = bm_zero;
         self.blend_alpha_dest = bm_one;
+		self.blend_equation = bm_eq_add;
+		self.blend_equation_alpha = bm_eq_add;
         obj_emu_demo.Refresh();
     };
     
@@ -164,7 +168,9 @@ function LayerData(name) constructor {
             } else {
                 gpu_set_blendmode_ext(self.blend_src, self.blend_dest);
             }
+			gpu_set_blendequation_sepalpha(self.blend_equation, self.blend_equation_alpha);
             draw_sprite_stretched(self.sprite, 0, self.x, self.y, self.width, self.height);
+			gpu_set_blendequation(bm_eq_add);
             if (obj_emu_demo.GetActiveLayer() == self) {
                 var x1 = self.x;
                 var y1 = self.y;
@@ -192,26 +198,32 @@ function LayerData(name) constructor {
     };
 };
 
-#macro BLEND_TYPE_DEFAULT 0
-#macro BLEND_TYPE_ADVANCED 1
+#macro BLEND_TYPE_DEFAULT		0
+#macro BLEND_TYPE_ADVANCED		1
 #macro BLEND_TYPE_MORE_ADVANCED 2
 
-#macro BM_NORMAL 0
-#macro BM_ADD 1
-#macro BM_SUBTRACT 2
-#macro BM_MAX 3
+#macro BE_ADD					0
+#macro BE_SUBTRACT				1
+#macro BE_REVERSE_SUBTRACT		2
+#macro BE_MIN					3
+#macro BE_MAX					4
 
-#macro BM_ZERO 0
-#macro BM_ONE 1
-#macro BM_SRC_COLOR 2
-#macro BM_INV_SRC_COLOR 3
-#macro BM_SRC_ALPHA 4
-#macro BM_INV_SRC_ALPHA 5
-#macro BM_DEST_ALPHA 6
-#macro BM_INV_DEST_ALPHA 7
-#macro BM_DEST_COLOR 8
-#macro BM_INV_DEST_COLOR 9
-#macro BM_SRC_ALPHA_SAT 10
+#macro BM_NORMAL				0
+#macro BM_ADD					1
+#macro BM_SUBTRACT				2
+#macro BM_MAX					3
+
+#macro BM_ZERO					0
+#macro BM_ONE					1
+#macro BM_SRC_COLOR				2
+#macro BM_INV_SRC_COLOR			3
+#macro BM_SRC_ALPHA				4
+#macro BM_INV_SRC_ALPHA			5
+#macro BM_DEST_ALPHA			6
+#macro BM_INV_DEST_ALPHA		7
+#macro BM_DEST_COLOR			8
+#macro BM_INV_DEST_COLOR		9
+#macro BM_SRC_ALPHA_SAT			10
 
 global.lookup_basic_to_index = { };
 global.lookup_basic_to_index[$ bm_normal] = BM_NORMAL;
@@ -224,6 +236,20 @@ global.lookup_index_to_basic[$ BM_NORMAL] = bm_normal;
 global.lookup_index_to_basic[$ BM_ADD] = bm_add;
 global.lookup_index_to_basic[$ BM_SUBTRACT] = bm_subtract;
 global.lookup_index_to_basic[$ BM_MAX] = bm_max;
+
+global.lookup_equation_to_index = { };
+global.lookup_equation_to_index[$ bm_eq_add] = BE_ADD;
+global.lookup_equation_to_index[$ bm_eq_subtract] = BE_SUBTRACT;
+global.lookup_equation_to_index[$ bm_eq_reverse_subtract] = BE_REVERSE_SUBTRACT;
+global.lookup_equation_to_index[$ bm_eq_min] = BE_MIN;
+global.lookup_equation_to_index[$ bm_eq_max] = BE_MAX;
+
+global.lookup_index_to_equation = { };
+global.lookup_index_to_equation[$ BE_ADD] = bm_eq_add;
+global.lookup_index_to_equation[$ BE_SUBTRACT] = bm_eq_subtract;
+global.lookup_index_to_equation[$ BE_REVERSE_SUBTRACT] = bm_eq_reverse_subtract;
+global.lookup_index_to_equation[$ BE_MIN] = bm_eq_min;
+global.lookup_index_to_equation[$ BE_MAX] = bm_eq_max;
 
 global.lookup_ext_to_index = { };
 global.lookup_ext_to_index[$ bm_zero] = BM_ZERO;
