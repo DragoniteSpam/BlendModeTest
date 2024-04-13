@@ -30,10 +30,6 @@ if (array_length(files) > 0) {
 			    } else {
 			        self.Refresh();
 			    }
-			    if (array_length(obj_emu_demo.layers) >= 12) {
-			        self.layer_add.interactive = false;
-					break;
-			    }
 	        }
 		}
 	}

@@ -133,9 +133,6 @@ layer_add = new EmuButton(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Add 
     } else {
         obj_emu_demo.Refresh();
     }
-    if (array_length(obj_emu_demo.layers) >= 12) {
-        self.interactive = false;
-    }
 });
 
 layer_enabled = new EmuCheckbox(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Visible?", true, function() {
