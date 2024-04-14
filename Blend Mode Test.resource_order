@@ -1,10 +1,13 @@
 {
   "FolderOrderSettings":[
-    {"name":"File Dropper","order":7,"path":"folders/File Dropper.yy",},
+    {"name":"Emu","order":1,"path":"folders/Emu.yy",},
+    {"name":"File Dropper","order":5,"path":"folders/File Dropper.yy",},
+    {"name":"Scribble","order":2,"path":"folders/Scribble.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"FileDropper","order":3,"path":"extensions/FileDropper/FileDropper.yy",},
     {"name":"fnt_emu_default","order":19,"path":"fonts/fnt_emu_default/fnt_emu_default.yy",},
+    {"name":"fnt_emu_large","order":6,"path":"fonts/fnt_emu_large/fnt_emu_large.yy",},
     {"name":"scribble_fallback_font","order":11,"path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},
     {"name":"readme_please","order":5,"path":"notes/readme_please/readme_please.yy",},
     {"name":"obj_emu_demo","order":4,"path":"objects/obj_emu_demo/obj_emu_demo.yy",},
@@ -29,7 +32,7 @@
     {"name":"__scribble_gen_9_write_vbuffs","order":8,"path":"scripts/__scribble_gen_9_write_vbuffs/__scribble_gen_9_write_vbuffs.yy",},
     {"name":"__scribble_system_glyph_data","order":10,"path":"scripts/__scribble_system_glyph_data/__scribble_system_glyph_data.yy",},
     {"name":"__scribble_system","order":9,"path":"scripts/__scribble_system/__scribble_system.yy",},
-    {"name":"blend_mode_test_stuff","order":5,"path":"scripts/blend_mode_test_stuff/blend_mode_test_stuff.yy",},
+    {"name":"blend_mode_test_stuff","order":3,"path":"scripts/blend_mode_test_stuff/blend_mode_test_stuff.yy",},
     {"name":"draw_text_scribble_ext","order":1,"path":"scripts/draw_text_scribble_ext/draw_text_scribble_ext.yy",},
     {"name":"emu_init","order":4,"path":"scripts/emu_init/emu_init.yy",},
     {"name":"EmuBitfield","order":1,"path":"scripts/EmuBitfield/EmuBitfield.yy",},
@@ -98,7 +101,7 @@
     {"name":"__shd_scribble_bake_shadow","order":4,"path":"shaders/__shd_scribble_bake_shadow/__shd_scribble_bake_shadow.yy",},
     {"name":"__shd_scribble_msdf","order":5,"path":"shaders/__shd_scribble_msdf/__shd_scribble_msdf.yy",},
     {"name":"shd_emu_color_buckets","order":20,"path":"shaders/shd_emu_color_buckets/shd_emu_color_buckets.yy",},
-    {"name":"shd_noalpha","order":6,"path":"shaders/shd_noalpha/shd_noalpha.yy",},
+    {"name":"shd_noalpha","order":4,"path":"shaders/shd_noalpha/shd_noalpha.yy",},
     {"name":"spr_emu_checkbox_border","order":22,"path":"sprites/spr_emu_checkbox_border/spr_emu_checkbox_border.yy",},
     {"name":"spr_emu_checkbox","order":21,"path":"sprites/spr_emu_checkbox/spr_emu_checkbox.yy",},
     {"name":"spr_emu_checker","order":23,"path":"sprites/spr_emu_checker/spr_emu_checker.yy",},

@@ -358,12 +358,12 @@ var button_export = new EmuButton(736, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, 
 });
 
 var button_credits = new EmuButton(736, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Credits", function() {
-    var dialog = new EmuDialog(640, 320, "Credits");
+    var dialog = new EmuDialog(672, 288, "Credits");
     dialog._element_spacing_y = ELEMENT_SPACING;
     dialog.AddContent([
-        new EmuText(dialog.width / 2, EMU_AUTO, 560, 64, "[c_blue][fa_center]Blend Mode Testing, by @dragonitespam[]"),
-        new EmuText(32, EMU_AUTO, 560, 32, "The [rainbow][wave]Scribble[/wave][/rainbow]  text renderer is by @jujuadams"),
-        new EmuText(32, EMU_AUTO, 560, 32, "The icon is \"blend\" by Adnen Kadri from the Noun Project"),
+        new EmuText(dialog.width / 2, EMU_AUTO, 608, 64, "[fnt_emu_large][c_aqua][fa_center]Blend Mode Testing[/c], by [c_aqua]@dragonitespam[]"),
+        new EmuText(32, EMU_AUTO, 608, 32, "[fnt_emu_large]The [rainbow][wave]Scribble[/wave][/rainbow]  text renderer is by [c_aqua]@jujuadams"),
+        new EmuText(32, EMU_AUTO, 608, 32, "[fnt_emu_large]The icon is \"blend\" by Adnen Kadri from The Noun Project"),
         new EmuButton(dialog.width / 2 - 128 / 2, dialog.height - 32 - 32 / 2, 128, 32, "Close", emu_dialog_close_auto),
     ]);
 });
