@@ -104,6 +104,7 @@ SetExt = function(src, dest) {
 
 layer_list = new EmuList(COL1_X, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Layers:", ELEMENT_HEIGHT, 16, function() { });
 layer_list.SetList(layers);
+layer_list.SetVacantText("Drag images into the window");
 layer_list.SetEntryTypes(E_ListEntryTypes.STRUCTS);
 layer_list.allow_deselect = false;
 layer_list.getListColors = method(layer_list, function(index) {
