@@ -311,14 +311,6 @@ layer_reset.SetInteractive(false);
 
 container.AddContent(layer_reset);
 
-load_image_button = new EmuButtonImage(736, EMU_AUTO, 128, 128, -1, 0, c_white, 1, true, function() {
-    var sprite_fn = get_open_filename("Image files|*.png;*.bmp;*jpg;*.jpeg;*", "Select an image");
-    obj_emu_demo.GetActiveLayer().SetSprite(sprite_add(sprite_fn, 0, false, false, 0, 0));
-    obj_emu_demo.Refresh();
-});
-load_image_button.alt_text = "Click to load";
-load_image_button.SetInteractive(false);
-
 render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
     gpu_set_colorwriteenable(true, true, true, false);
     if (obj_emu_demo.preview_export_opaque) {
@@ -333,12 +325,14 @@ render_surface = new EmuRenderSurface(736, 0, 540, 540, function(mx, my) {
     gpu_set_colorwriteenable(true, true, true, true);
 }, function(mx, my) { }, function() { }, function() { });
 
-container.AddContent([
-    render_surface,
-    load_image_button,
-]);
+load_image_button = new EmuButton(736, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Load Image", function() {
+    var sprite_fn = get_open_filename("Image files|*.png;*.bmp;*jpg;*.jpeg;*", "Select an image");
+    obj_emu_demo.GetActiveLayer().SetSprite(sprite_add(sprite_fn, 0, false, false, 0, 0));
+    obj_emu_demo.Refresh();
+});
+load_image_button.SetInteractive(false);
 
-var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Export Image", function() {
+var button_export = new EmuButton(736, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Export Image", function() {
     var fn = get_save_filename("PNG files|*.png", "save.png");
     if (fn != "") {
         var t_borders = obj_emu_demo.preview_borders;
@@ -363,7 +357,7 @@ var button_export = new EmuButton(732 + 128 + 32, EMU_AUTO, ELEMENT_WIDTH, ELEME
     }
 });
 
-var button_credits = new EmuButton(732 + 128 + 32, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Credits", function() {
+var button_credits = new EmuButton(736, EMU_AUTO, ELEMENT_WIDTH, ELEMENT_HEIGHT, "Credits", function() {
     var dialog = new EmuDialog(640, 320, "Credits");
     dialog._element_spacing_y = ELEMENT_SPACING;
     dialog.AddContent([
@@ -375,18 +369,20 @@ var button_credits = new EmuButton(732 + 128 + 32, EMU_AUTO, ELEMENT_WIDTH, ELEM
 });
 
 container.AddContent([
-    new EmuColorPicker(732 + 128 + 32, load_image_button.y, 384, ELEMENT_HEIGHT, "Background color:", preview_background_color, function() {
+    render_surface,
+    new EmuColorPicker(736, EMU_AUTO, 384, ELEMENT_HEIGHT, "Background color:", preview_background_color, function() {
         obj_emu_demo.preview_background_color = value;
     }),
+    load_image_button,
     button_export,
-    button_credits,
+    button_credits
 ]);
 
 container.AddContent([
-    new EmuCheckbox(732 + 128 + 256 + 32, button_export.y, 128, ELEMENT_HEIGHT, "Opaque?", preview_export_opaque, function() {
+    new EmuCheckbox(736 + ELEMENT_WIDTH + 32, load_image_button.y, 128, ELEMENT_HEIGHT, "Opaque?", preview_export_opaque, function() {
         obj_emu_demo.preview_export_opaque = value;
     }),
-    new EmuCheckbox(732 + 128 + 256 + 32, button_credits.y, 128, ELEMENT_HEIGHT, "Borders?", preview_borders, function() {
+    new EmuCheckbox(736 + ELEMENT_WIDTH + 32, EMU_AUTO, 128, ELEMENT_HEIGHT, "Borders?", preview_borders, function() {
         obj_emu_demo.preview_borders = value;
     }),
 ]);
